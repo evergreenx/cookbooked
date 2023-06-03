@@ -5,6 +5,9 @@ import React from "react";
 import Button from "@/components/atoms/Button";
 import { Form, useFormik } from "formik";
 import * as Yup from "yup";
+import { Account, ID } from "appwrite";
+import toast, { Toaster } from "react-hot-toast";
+import { client } from "@/appwrite/config";
 
 const SignupSchema = Yup.object().shape({
   username: Yup.string()
@@ -79,23 +82,49 @@ const Signup = () => {
     },
   });
 
+  const handleSignup = (e: any) => {
+    e.preventDefault();
+
+    const account = new Account(client);
+
+    const promise = account.create(
+      ID.unique(),
+
+      formik.values.email,
+      formik.values.password,
+      formik.values.username
+    );
+
+    promise
+      .then(function (response: any) {
+        toast("Account created successfully");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      })
+
+      .finally(() => {
+        // toast('Here is your toast.');
+      });
+  };
+
   return (
     <motion.div
       variants={containerVariants}
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="flex flex-col h-screen w-full lg:w-[50%] mx-auto justify-center items-center  p-1"
+      className="flex flex-col h-screen w-full  mx-auto justify-center items-center  p-1"
     >
       <h2 className="text-[#2E3E5C] text-[22px] font-bold text-center">
         Sign Up Here!
       </h2>
 
       <p className="text-[#9FA5C0] font-medium text-[15px] text-center mt-[8px] mb-[32px]">
-        Please enter your account here
+        Please enter your account details here
       </p>
 
-      <form>
+      <form onSubmit={handleSignup}>
         <motion.div variants={inputVariants} className="email mb-[16px]">
           <DefaultInput
             placeholder="Email or phone number"
@@ -156,6 +185,7 @@ const Signup = () => {
           </Button>
         </motion.div>
       </form>
+      <Toaster />
     </motion.div>
   );
 };
