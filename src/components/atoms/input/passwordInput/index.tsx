@@ -29,7 +29,7 @@ const PasswordInput = ({
   };
 
   return (
-    <div className="flex border-[#D0DBEA] rounded-[10px] border bg-[#fff] h-[56px]">
+    <div className="flex border-[#D0DBEA] rounded-[10px] w-full   border bg-[#fff] h-[56px]  mx-auto p-2">
       <Image src={lockIcon} alt="lock icon" className="mr-[14px]" />
       <input
         id={id}

@@ -1,5 +1,6 @@
-import { ChangeEventHandler } from 'react';
-import styles from './input.module.css';
+import { messageIcon } from "@/assets";
+import Image from "next/image";
+import { ChangeEventHandler } from "react";
 
 interface InputProps {
   className?: string;
@@ -9,17 +10,35 @@ interface InputProps {
   placeholder?: string;
   label?: string;
   readOnly?: boolean;
-  name ?: string;
-  onBlur ?: any;
+  name?: string;
+  onBlur?: any;
 }
 
-const DefaultInput = ({ type, className, value, onChange, placeholder, label, readOnly , name , onBlur }: InputProps) => {
+const DefaultInput = ({
+  type,
+  className,
+  value,
+  onChange,
+  placeholder,
+  label,
+  readOnly,
+  name,
+  onBlur,
+}: InputProps) => {
   return (
-    <div className={`${styles['input-container']} ${className}`}>
-      <label>{label}</label>
+    <div className="flex border-[#D0DBEA] rounded-[10px] border bg-[#fff] h-[56px] w-full   mx-auto p-2">
+
+        <Image src={messageIcon} alt="messageIcon"  className="mr-[14px]" />
       <input
         type={type}
         placeholder={placeholder}
+        className="
+        text-[15px]
+   
+        font-medium
+        text-[#9FA5C0]
+    outline-none
+        w-full "
         value={value}
         onChange={onChange}
         name={name}
