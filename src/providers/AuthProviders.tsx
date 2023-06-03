@@ -63,6 +63,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
       router.push("/");
     } catch (error: any) {
       const appwriteException = error as AppwriteException;
+      toast.error(appwriteException.message);
       console.error(appwriteException.message);
     }
   };

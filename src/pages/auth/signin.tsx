@@ -152,6 +152,13 @@ const Signup = () => {
         </motion.div>
       </form>
 
+      <p className="text-[#2E3E5C] font-medium text-[15px] mt-[28px] ">
+        Don’t have any account?{" "}
+        <a href="/auth/signup" className="text-brandColor font-bold">
+          Signup
+        </a>
+      </p>
+
       <Toaster position="bottom-center" reverseOrder={false} />
     </motion.div>
   );
