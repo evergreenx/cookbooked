@@ -62,7 +62,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     try {
       await account.createEmailSession(email, password);
 
-      setLoadingFeedback(false);
+      
       await loadAccount();
 
 
@@ -76,13 +76,16 @@ export const UserProvider = ({ children }: UserProviderProps) => {
       toast.error(appwriteException.message);
       console.error(appwriteException.message);
     }
+    finally (res: any){
+    setLoadingFeedback(false);
+    }
   };
 
   const signup = async (email: string, password: string, name: string) => {
     setLoadingFeedback(true);
     try {
       const session = await account.create("unique()", email, password, name);
-      setLoadingFeedback(false);
+     
       setUser(session);
       await account.createEmailSession(email, password);
       router.push("/");
@@ -91,6 +94,9 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     } catch (error: any) {
       console.error(error);
       toast.error(error.message);
+    }
+    finally (res: any){
+    setLoadingFeedback(false);
     }
   };
 
