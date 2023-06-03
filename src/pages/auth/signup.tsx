@@ -8,6 +8,8 @@ import * as Yup from "yup";
 import { Account, ID } from "appwrite";
 import toast, { Toaster } from "react-hot-toast";
 import { client } from "@/appwrite/config";
+import { UseUser } from "@/providers/AuthProviders";
+import { useRouter } from "next/router";
 
 const SignupSchema = Yup.object().shape({
   username: Yup.string()
@@ -22,6 +24,7 @@ const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
 });
 const Signup = () => {
+  const router = useRouter();
   const containerVariants = {
     hidden: {
       opacity: 0,
@@ -82,31 +85,20 @@ const Signup = () => {
     },
   });
 
+  const { signup, loading, user } = UseUser();
+
   const handleSignup = (e: any) => {
     e.preventDefault();
-
-    const account = new Account(client);
-
-    const promise = account.create(
-      ID.unique(),
-
-      formik.values.email,
-      formik.values.password,
-      formik.values.username
-    );
-
-    promise
-      .then(function (response: any) {
-        toast("Account created successfully");
-      })
-      .catch((error) => {
-        toast.error(error.message);
-      })
-
-      .finally(() => {
-        // toast('Here is your toast.');
-      });
+    signup(formik.values.email, formik.values.password, formik.values.username);
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (user) {
+    router.push("/");
+  }
 
   return (
     <motion.div
@@ -181,7 +173,7 @@ const Signup = () => {
               formik.values.password === ""
             }
           >
-            Sign Up
+            {loading ? "Loading..." : "Sign Up"}
           </Button>
         </motion.div>
       </form>

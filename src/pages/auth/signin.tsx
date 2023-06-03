@@ -5,6 +5,9 @@ import React from "react";
 import Button from "@/components/atoms/Button";
 import { Form, useFormik } from "formik";
 import * as Yup from "yup";
+import { UseUser } from "@/providers/AuthProviders";
+import { Toaster } from "react-hot-toast";
+import { useRouter } from "next/router";
 
 const SignupSchema = Yup.object().shape({
   password: Yup.string()
@@ -15,6 +18,8 @@ const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
 });
 const Signup = () => {
+  const router = useRouter();
+  const { login, loading, error, user } = UseUser();
   const containerVariants = {
     hidden: {
       opacity: 0,
@@ -74,6 +79,19 @@ const Signup = () => {
     },
   });
 
+  const handleSignIn = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    login(formik.values.email, formik.values.password);
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (user) {
+    router.push("/");
+  }
+
   return (
     <motion.div
       variants={containerVariants}
@@ -90,7 +108,7 @@ const Signup = () => {
         Please enter your account details here
       </p>
 
-      <form>
+      <form onSubmit={handleSignIn}>
         <motion.div variants={inputVariants} className="email mb-[16px]">
           <DefaultInput
             placeholder="Email or phone number"
@@ -133,6 +151,8 @@ const Signup = () => {
           </Button>
         </motion.div>
       </form>
+
+      <Toaster position="bottom-center" reverseOrder={false} />
     </motion.div>
   );
 };
