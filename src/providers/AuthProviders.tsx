@@ -76,9 +76,13 @@ export const UserProvider = ({ children }: UserProviderProps) => {
       toast.error(appwriteException.message);
       console.error(appwriteException.message);
     }
-    finally (res: any){
-    setLoadingFeedback(false);
+
+    finally {
+      setLoadingFeedback(false);
     }
+
+ 
+
   };
 
   const signup = async (email: string, password: string, name: string) => {
@@ -95,9 +99,11 @@ export const UserProvider = ({ children }: UserProviderProps) => {
       console.error(error);
       toast.error(error.message);
     }
-    finally (res: any){
-    setLoadingFeedback(false);
+    
+    finally {
+      setLoadingFeedback(false);
     }
+
   };
 
   const logout = async () => {
