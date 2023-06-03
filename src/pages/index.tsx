@@ -18,10 +18,14 @@ const Index = () => {
     return <div>redirecting...</div>;
   }
   return (
-    <div>
-      index
+    <div className="flex flex-col items-center justify-center h-screen ">
+      
+
+      <h1 className="text-center text-xl my-5">
       {user && "logged in as " + user.name}
-      <Button size="small" onClick={() => logout()}>
+
+      </h1>
+      <Button size="medium" onClick={() => logout()}>
         logout
       </Button>
     </div>

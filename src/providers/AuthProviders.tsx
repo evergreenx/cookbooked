@@ -11,7 +11,7 @@ import {
 import toast from "react-hot-toast";
 
 export interface UserState {
-  user: Models.Account<Models.Preferences> | null;
+  user:  any;
   loading: boolean;
   error: string | null;
   logout: () => Promise<void>;
@@ -34,7 +34,7 @@ type UserProviderProps = {
   children: ReactNode;
 };
 export const UserProvider = ({ children }: UserProviderProps) => {
-  const [user, setUser] = useState<Models.Account<Models.Preferences> | null>(
+  const [user, setUser] = useState< null | {name:string , email:string,} >(
     null
   );
   const [loading, setLoading] = useState(true);
@@ -63,7 +63,6 @@ export const UserProvider = ({ children }: UserProviderProps) => {
       router.push("/");
     } catch (error: any) {
       const appwriteException = error as AppwriteException;
-      toast.error(appwriteException.message);
       console.error(appwriteException.message);
     }
   };
