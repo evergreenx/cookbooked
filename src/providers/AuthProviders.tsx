@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 export interface UserState {
   user: any;
   loading: boolean;
+  loadingFeedback: boolean;
   error: string | null;
   logout: () => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
@@ -23,6 +24,7 @@ const defaultState: UserState = {
   user: null,
   loading: true,
   error: null,
+  loadingFeedback: false,
   logout: async () => {},
   signup: async () => {},
   login: async () => {},
@@ -38,6 +40,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     null
   );
   const [loading, setLoading] = useState(true);
+  const [loadingFeedback, setLoadingFeedback] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
 
@@ -54,13 +57,20 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   };
 
   const login = async (email: string, password: string) => {
+
+    setLoadingFeedback(true);
     try {
       await account.createEmailSession(email, password);
+
+      setLoadingFeedback(false);
       await loadAccount();
+
+
+
+      router.push("/");
 
       toast.success("Logged in successfully");
 
-      router.push("/");
     } catch (error: any) {
       const appwriteException = error as AppwriteException;
       toast.error(appwriteException.message);
@@ -69,12 +79,15 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   };
 
   const signup = async (email: string, password: string, name: string) => {
+    setLoadingFeedback(true);
     try {
       const session = await account.create("unique()", email, password, name);
-      toast("Account created successfully");
+      setLoadingFeedback(false);
       setUser(session);
       await account.createEmailSession(email, password);
       router.push("/");
+      toast("Account created successfully");
+
     } catch (error: any) {
       console.error(error);
       toast.error(error.message);
@@ -92,7 +105,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   }, []);
   return (
     <userContext.Provider
-      value={{ user, loading, error, logout, login, signup }}
+      value={{ user, loading, error, logout, login, signup , loadingFeedback }}
     >
       {children}
     </userContext.Provider>
