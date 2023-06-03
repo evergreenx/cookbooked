@@ -11,7 +11,7 @@ import {
 import toast from "react-hot-toast";
 
 export interface UserState {
-  user:  any;
+  user: any;
   loading: boolean;
   error: string | null;
   logout: () => Promise<void>;
@@ -34,7 +34,7 @@ type UserProviderProps = {
   children: ReactNode;
 };
 export const UserProvider = ({ children }: UserProviderProps) => {
-  const [user, setUser] = useState< null | {name:string , email:string,} >(
+  const [user, setUser] = useState<null | { name: string; email: string }>(
     null
   );
   const [loading, setLoading] = useState(true);

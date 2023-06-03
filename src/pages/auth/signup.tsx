@@ -112,7 +112,8 @@ const Signup = () => {
         Sign Up Here!
       </h2>
 
-      <p className="text-[#9FA5C0] font-medium text-[15px] text-center mt-[8px] mb-[32px]">
+      <p className="text-[#9FA5C0] font-medium text-[15px] text-center mt-[8px] mb-[32px] tracking-[0.5px]
+      ">
         Please enter your account details here
       </p>
 
@@ -177,6 +178,13 @@ const Signup = () => {
           </Button>
         </motion.div>
       </form>
+
+      <p className="text-[#2E3E5C] font-medium text-[15px] mt-[28px] ">
+      have an account?{" "}
+        <a href="/auth/signin" className="text-brandColor font-bold">
+          Signin
+        </a>
+      </p>
       <Toaster />
     </motion.div>
   );

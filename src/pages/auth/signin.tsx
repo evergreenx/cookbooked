@@ -101,11 +101,12 @@ const Signup = () => {
       className="flex flex-col h-screen w-full  mx-auto justify-center items-center  p-1"
     >
       <h2 className="text-[#2E3E5C] text-[22px] font-bold text-center">
-        Welcome back!
+      Welcome Back!
       </h2>
 
-      <p className="text-[#9FA5C0] font-medium text-[15px] text-center mt-[8px] mb-[32px]">
-        Please enter your account details here
+      <p className="text-[#9FA5C0] font-medium text-[15px] text-center mt-[8px] mb-[32px] tracking-[0.5px]
+      ">
+      Please enter your account here
       </p>
 
       <form onSubmit={handleSignIn}>
@@ -137,6 +138,15 @@ const Signup = () => {
               {formik.errors.password}
             </div>
           ) : null}
+        </motion.div>
+
+        <motion.div
+          variants={inputVariants}
+          className="forgetpassword mt-[20px] text-right mb-[50px]"
+        >
+          <a href="/auth/forgetpassword" className="text-[#2E3E5C] font-medium text-[15px]">
+            Forget password?
+          </a>
         </motion.div>
 
         <motion.div variants={inputVariants} className="button mt-[20px]">
