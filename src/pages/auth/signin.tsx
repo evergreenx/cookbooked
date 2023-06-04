@@ -115,7 +115,7 @@ const Signup = () => {
       <form onSubmit={handleSignIn}>
         <motion.div variants={inputVariants} className="email mb-[16px]">
           <DefaultInput
-            placeholder="Email or phone number"
+            placeholder="Email"
             type="email"
             onChange={formik.handleChange}
             value={formik.values.email}

@@ -57,53 +57,45 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   };
 
   const login = async (email: string, password: string) => {
-
     setLoadingFeedback(true);
     try {
       await account.createEmailSession(email, password);
 
-      
       await loadAccount();
-
-
 
       router.push("/");
 
       toast.success("Logged in successfully");
-
     } catch (error: any) {
       const appwriteException = error as AppwriteException;
       toast.error(appwriteException.message);
       console.error(appwriteException.message);
-    }
-
-    finally {
+    } finally {
       setLoadingFeedback(false);
     }
-
- 
-
   };
 
   const signup = async (email: string, password: string, name: string) => {
     setLoadingFeedback(true);
     try {
       const session = await account.create("unique()", email, password, name);
-     
+
       setUser(session);
       await account.createEmailSession(email, password);
-      router.push("/");
-      toast("Account created successfully");
 
+      await account.updatePrefs({
+        imageUrls:
+          "https://cloud.appwrite.io/v1/storage/buckets/647cdb4cd6eb605c0d3e/files/647cde05ed88aba0c80b/view?project=647a8967b6ee81b46589&mode=admin",
+      });
+
+      router.push("/");
+      toast.success("Account created successfully");
     } catch (error: any) {
       console.error(error);
       toast.error(error.message);
-    }
-    
-    finally {
+    } finally {
       setLoadingFeedback(false);
     }
-
   };
 
   const logout = async () => {
@@ -117,7 +109,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   }, []);
   return (
     <userContext.Provider
-      value={{ user, loading, error, logout, login, signup , loadingFeedback }}
+      value={{ user, loading, error, logout, login, signup, loadingFeedback }}
     >
       {children}
     </userContext.Provider>

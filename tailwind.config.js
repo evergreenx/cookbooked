@@ -11,6 +11,8 @@ module.exports = {
         brandColor: '#F5484A',
       },
       backgroundImage: {
+  
+        'cats': 'url(https://placekitten.com/1400)',
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
