@@ -1,7 +1,8 @@
 import { UseUser } from "@/providers/AuthProviders";
-import React from "react";
+import React, { ReactElement } from "react";
 import Image from "next/image";
 import UserAvatar from "@/components/atoms/Avatar";
+import AppLayout from "@/components/organism/Layout/AppLayout";
 
 const profile = () => {
   const { user, loading } = UseUser();
@@ -16,14 +17,9 @@ const profile = () => {
       {/* <h1 className="text-[#2E3E5C] font-semibold text-[24px]">My Profile</h1> */}
 
       <div className="useravatar flex justify-between items-center -mt-20 p-8 ">
-        <UserAvatar
-          name={user?.name}
-          imageurl={user?.prefs.imageUrls}
-          width={120}
-          height={120}
-        />
+        <UserAvatar width={120} height={120} />
 
-        <button className="border-brandColor mt-5  border py-[8px] px-[16px] bg-white text-brandColor font-semibold text-sm rounded-[10px]">
+        <button className="border-brandColor mt-10  border py-[8px] px-[16px] bg-white text-brandColor font-semibold text-sm rounded-[10px]">
           Edit Profile
         </button>
       </div>
@@ -68,3 +64,8 @@ const profile = () => {
 };
 
 export default profile;
+
+profile.getLayout = function getLayout(page: ReactElement) {
+  console.log(page, "page");
+  return <AppLayout>{page}</AppLayout>;
+};
