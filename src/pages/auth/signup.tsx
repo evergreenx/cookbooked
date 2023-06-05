@@ -171,9 +171,7 @@ const Signup = () => {
             size="large"
             type="submit"
             disable={
-              formik.values.email === "" ||
-              formik.values.username === "" ||
-              formik.values.password === ""
+            !formik.isValid
             }
           >
            {loadingFeedback ? (

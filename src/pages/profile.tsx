@@ -6,9 +6,10 @@ import UserAvatar from "@/components/atoms/Avatar";
 import AppLayout from "@/components/organism/Layout/AppLayout";
 import EditProfileDialog from "@/components/atoms/Dialog";
 import { useRouter } from "next/router";
+import { Toaster } from "react-hot-toast";
 
 const Profile = () => {
-  const { user, loading } = UseUser();
+  const { user, loading, loadingFeedback } = UseUser();
   const router = useRouter();
 
   if (loading) {
@@ -35,13 +36,7 @@ const Profile = () => {
       >
         <UserAvatar sizes="large" />
 
-        <motion.button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="border-brandColor mt-10 border py-[8px] px-[16px] bg-white text-brandColor font-semibold text-sm rounded-[10px]"
-        >
-          Edit Profile
-        </motion.button>
+        <EditProfileDialog />
       </motion.div>
 
       <motion.div
@@ -60,7 +55,7 @@ const Profile = () => {
         className="userbio px-8"
       >
         <h2 className="text-[#A9A9A9] font-normal text-sm capitalize">
-          bio goes here
+          {user?.prefs.bio}
         </h2>
       </motion.div>
 
@@ -97,6 +92,7 @@ const Profile = () => {
           </h2>
         </motion.div>
       </motion.div>
+      <Toaster />
     </motion.div>
   );
 };

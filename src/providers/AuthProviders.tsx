@@ -18,6 +18,7 @@ export interface UserState {
   logout: () => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
   signup: (email: string, password: string, name: string) => Promise<void>;
+  updateUserDetails: (name: string, bio: string) => Promise<void>;
 }
 
 const defaultState: UserState = {
@@ -28,6 +29,7 @@ const defaultState: UserState = {
   logout: async () => {},
   signup: async () => {},
   login: async () => {},
+  updateUserDetails: async () => {},
 };
 
 const userContext = createContext<UserState>(defaultState);
@@ -75,6 +77,8 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     }
   };
 
+  // user management
+
   const signup = async (email: string, password: string, name: string) => {
     setLoadingFeedback(true);
     try {
@@ -104,12 +108,44 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     router.push("/auth/signin");
   };
 
+  const updateUserDetails = async (name: string, bio: string) => {
+    setLoadingFeedback(true);
+    try {
+      await account.updateName(name);
+
+      await account.updatePrefs({
+        imageUrls: 'https://cloud.appwrite.io/v1/storage/buckets/647cdb4cd6eb605c0d3e/files/647cde05ed88aba0c80b/view?project=647a8967b6ee81b46589&mode=admin',
+        bio: bio,
+      });
+
+      await loadAccount();
+
+      // router.push("/");
+
+      toast.success("profile updated successfully");
+    } catch (error: any) {
+      const appwriteException = error as AppwriteException;
+      toast.error(appwriteException.message);
+      console.error(appwriteException.message);
+    } finally {
+      setLoadingFeedback(false);
+    }
+  };
   useEffect(() => {
     loadAccount();
   }, []);
   return (
     <userContext.Provider
-      value={{ user, loading, error, logout, login, signup, loadingFeedback }}
+      value={{
+        user,
+        loading,
+        error,
+        logout,
+        login,
+        signup,
+        loadingFeedback,
+        updateUserDetails,
+      }}
     >
       {children}
     </userContext.Provider>
