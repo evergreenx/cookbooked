@@ -3,18 +3,31 @@ import * as Avatar from "@radix-ui/react-avatar";
 import { UseUser } from "@/providers/AuthProviders";
 
 interface UserAvatarProps {
-  width?: number;
-  height?: number;
+  sizes: 'small' | 'large';
 }
 
-const UserAvatar = ({ width, height }: UserAvatarProps) => {
+const UserAvatar = ({ sizes }: UserAvatarProps) => {
   const { user, loading } = UseUser();
+
+  let sizeClass = "";
+  switch (sizes) {
+    case "large":
+      sizeClass = "w-[100px] h-[100px]";
+      break;
+
+    case "small":
+      sizeClass = "w-[30px] h-[30px]";
+      break;
+
+    default:
+      break;
+  }
 
   return (
     <div className=" border-[8px] rounded-full border-[#fff]">
       {user && (
         <Avatar.Root
-          className={`bg-red-200 inline-flex h-[100px] w-[100px] select-none items-center justify-center overflow-hidden rounded-full align-middle`}
+          className={`bg-red-200 inline-flex cursor-pointer  ${sizeClass} select-none items-center justify-center overflow-hidden rounded-full align-middle`}
         >
           <Avatar.Image
             className="h-full w-full rounded-[inherit] object-cover"

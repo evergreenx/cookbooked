@@ -10,6 +10,8 @@ module.exports = {
       colors: {
         brandColor: '#F5484A',
       },
+
+      
       backgroundImage: {
   
         'cats': 'url(https://placekitten.com/1400)',

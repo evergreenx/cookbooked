@@ -3,29 +3,27 @@ import React, { ReactNode } from "react";
 type ButtonProps = {
   children: ReactNode;
   onClick?: () => void;
-  size?: "small" | "medium" | "large" | "fab";
+  size?: "small" | "medium" | "large" | "fab" | "outline";
   disable?: boolean;
   type?: "button" | "submit" | "reset";
 };
 
-const Button = ({
-  children,
-  onClick,
-  size,
-  disable,
-  type,
-}: ButtonProps) => {
+const Button = ({ children, onClick, size, disable, type }: ButtonProps) => {
   // handle size
   let sizeClass = "";
   switch (size) {
     case "small":
-      sizeClass = "px-2 py-1 text-xs rounded-[12px]";
+      sizeClass = "px-2 py-1 text-xs rounded-[12px] text-white hover:bg-red-400 ";
       break;
     case "medium":
-      sizeClass = "px-4 py-2 text-sm rounded-[12px]";
+      sizeClass = "px-10 py-3 text-sm rounded-[12px] text-white hover:bg-red-400 ";
+      break;
+    case "outline":
+      sizeClass =
+        "px-10 py-3 text-sm rounded-[12px] border border-brandColor bg-transparent text-brandColor";
       break;
     case "large":
-      sizeClass = "px-6 py-4 text-[15px] w-full rounded-[10px]";
+      sizeClass = "px-6 py-4 text-[15px] w-full rounded-[10px] text-white hover:bg-red-400 ";
       break;
     case "fab":
       sizeClass = " w-[42px] h-[42px]  text-[14.06px] rounded-full";
@@ -37,7 +35,7 @@ const Button = ({
 
   return (
     <button
-      className={`bg-brandColor  mx-auto hover:bg-red-400 flex items-center justify-center shadow-2xl shadow-slate-400 text-white font-bold ${sizeClass} disabled:opacity-25`}
+      className={`bg-brandColor  mx-auto flex items-center justify-center shadow-2xl shadow-slate-400  font-bold ${sizeClass} disabled:opacity-25`}
       disabled={disable}
       onClick={onClick}
       type={type}

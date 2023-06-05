@@ -4,12 +4,19 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import UserAvatar from "@/components/atoms/Avatar";
 import AppLayout from "@/components/organism/Layout/AppLayout";
+import EditProfileDialog from "@/components/atoms/Dialog";
+import { useRouter } from "next/router";
 
-const profile = () => {
+const Profile = () => {
   const { user, loading } = UseUser();
+  const router = useRouter();
 
   if (loading) {
     return <div>loading...</div>;
+  }
+
+  if (!user) {
+    router.push("/auth/signin");
   }
 
   return (
@@ -26,7 +33,7 @@ const profile = () => {
         animate={{ scale: 1 }}
         className="useravatar flex justify-between items-center -mt-20 p-8"
       >
-        <UserAvatar width={120} height={120} />
+        <UserAvatar sizes="large" />
 
         <motion.button
           initial={{ opacity: 0 }}
@@ -94,9 +101,9 @@ const profile = () => {
   );
 };
 
-export default profile;
+export default Profile;
 
-profile.getLayout = function getLayout(page: ReactElement) {
+Profile.getLayout = function getLayout(page: ReactElement) {
   console.log(page, "page");
   return <AppLayout>{page}</AppLayout>;
 };
