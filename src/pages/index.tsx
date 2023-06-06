@@ -9,8 +9,9 @@ import Image from "next/image";
 import type { NextPageWithLayout } from "./_app";
 import Header from "@/components/molecules/Header";
 import AppLayout from "@/components/organism/Layout/AppLayout";
+import { FabButton } from "@/components/molecules/FabButton";
 
-const Page:NextPageWithLayout = () => {
+const Page: NextPageWithLayout = () => {
   const { user, logout, loading } = UseUser();
   const router = useRouter();
 
@@ -94,6 +95,9 @@ const Page:NextPageWithLayout = () => {
       <h1 className="text-center text-xl my-5">
         {user && "logged in as " + user.name}
 
+        <FabButton
+     
+      />
         {user && user.prefs.imageUrls && (
           <Image
             src={user.prefs.imageUrls}
@@ -114,12 +118,7 @@ const Page:NextPageWithLayout = () => {
 
 export default Page;
 
-
-
 Page.getLayout = function getLayout(page: ReactElement) {
-
-
-
-  console.log(page, 'page');
+  console.log(page, "page");
   return <AppLayout>{page}</AppLayout>;
 };
