@@ -7,9 +7,14 @@ import Image from "next/image";
 import FileUpload from "@/components/molecules/FileUpload";
 import SelectServing from "@/components/atoms/SelectServing";
 import CustomInput from "@/components/atoms/CookingInstruction/CustomInput";
+import { ID, Permission, Role } from "appwrite";
+import { databases } from "@/appwrite/config";
+import { UseUser } from "@/providers/AuthProviders";
 
 const AddRecipeForm = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const { user } = UseUser();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -24,6 +29,38 @@ const AddRecipeForm = () => {
     visible: { opacity: 1, y: 0 },
   };
 
+  const handleAddRecipe = (data:{
+    recipe_title: string,
+    cover__image: string,
+    serving_size: number,
+    author__notes: string,
+  
+    
+  }) => {
+    const promise = databases.createDocument(
+      "647ba64bca1fc8a8992e",
+      "647ba64bca1fc8a8992e",
+
+      ID.unique(),
+      {
+        recipe_title 
+      },
+      [
+        Permission.read(Role.user(user["$id"])),
+        Permission.write(Role.user(user["$id"])),
+        Permission.read(Role.user(user["$id"])),
+      ]
+    );
+
+    promise.then(
+      function (response) {
+        console.log(response); // Success
+      },
+      function (error) {
+        console.log(error); // Failure
+      }
+    );
+  };
   return (
     <motion.div initial="hidden" animate="visible" variants={containerVariants}>
       <Formik

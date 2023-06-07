@@ -114,7 +114,8 @@ export const UserProvider = ({ children }: UserProviderProps) => {
       await account.updateName(name);
 
       await account.updatePrefs({
-        imageUrls: 'https://cloud.appwrite.io/v1/storage/buckets/647cdb4cd6eb605c0d3e/files/647cde05ed88aba0c80b/view?project=647a8967b6ee81b46589&mode=admin',
+        imageUrls:
+          "https://cloud.appwrite.io/v1/storage/buckets/647cdb4cd6eb605c0d3e/files/647cde05ed88aba0c80b/view?project=647a8967b6ee81b46589&mode=admin",
         bio: bio,
       });
 
