@@ -47,14 +47,15 @@ const SelectServing = () => (
   </Select.Root>
 );
 
-const SelectItem = React.forwardRef(
-  ({ children, className, ...props }, forwardedRef) => {
+const SelectItem = React.forwardRef<HTMLDivElement, { children: React.ReactNode; className?: string; value: string }>(
+  ({ children, className, value, ...props }, forwardedRef) => {
     return (
       <Select.Item
         className={classnames(
           "text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1",
           className
         )}
+        value={value}
         {...props}
         ref={forwardedRef}
       >
@@ -66,6 +67,13 @@ const SelectItem = React.forwardRef(
     );
   }
 );
+
+
+
+
+
+
+SelectItem.displayName = "SelectItem";
 
 SelectItem.displayName = "SelectItem";
 export default SelectServing;
