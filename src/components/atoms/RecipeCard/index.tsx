@@ -1,23 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
-
-interface Document {
-  collectionId?: string;
-  createdAt?: string;
-  databaseId?: string;
-  id: string;
-  permissions?: string[];
-  updatedAt?: string;
-  author__notes: string;
-  cooking__instruction: string[];
-  cover__image: string;
-  ingredients: string[];
-  name: string;
-  recipe_title: string;
-  serving_size: number;
-  userId?: string;
-}
+import { Document } from "@/types";
 
 const RecipeCard = ({
   name,
@@ -30,7 +14,7 @@ const RecipeCard = ({
 }: Document) => {
   const cardVariants = {
     hidden: { opacity: 0, scale: 0.5 },
-    visible: { opacity: 1, scale: 1 },
+    visible: { opacity: 1, scale: 1, duration: 0.8, delay: 0.5 },
   };
 
   return (

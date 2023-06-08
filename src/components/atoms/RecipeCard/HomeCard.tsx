@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
+import { Document } from "@/types";
 
 const HomeCard = ({
   name,
@@ -29,11 +30,16 @@ const HomeCard = ({
       variants={cardVariants}
       //   whileHover={{ scale: 1.1 }}
     >
-      <motion.div className="image w-[234px] " variants={imageVariants}>
-        <img
+      <motion.div className="image  " variants={imageVariants}>
+        <Image
           src={cover__image}
           alt="Picture of the author"
-          className="rounded-2xl h-[115px] w-[124px]"
+          priority={true}
+          placeholder="blur"
+          blurDataURL={cover__image}
+            width={500}
+            height={500}
+          className="rounded-2xl lg:h-[160px] w-[214px]"
         />
       </motion.div>
       <motion.div

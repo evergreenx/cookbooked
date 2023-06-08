@@ -14,6 +14,8 @@ import { FabButton } from "@/components/molecules/FabButton";
 import RecipeCard from "@/components/atoms/RecipeCard";
 import { arrowIcon } from "@/assets";
 import HomeCard from "@/components/atoms/RecipeCard/HomeCard";
+import { motion } from "framer-motion";
+import { Document } from "../types";
 
 const Page: NextPageWithLayout = () => {
   const { user, logout, loading } = UseUser();
@@ -84,9 +86,21 @@ const Page: NextPageWithLayout = () => {
   return (
     <>
       <div className="flex flex-col justify-center p-10 ">
-        <h1 className="text-[#2E3E5C] font-semibold text-2xl text-left mt-[12px] mb-[16px]">
-          Find best recipes <br /> for cooking
-        </h1>
+        <motion.h1
+          className="text-[#2E3E5C]  text-[40px] lg:text-[100px] font-bold text-center tracking-tighter leading-tight"
+          initial={{ y: -100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+        >
+          Find best recipes <br className="hidden lg:block" />
+          <motion.span
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1 }}
+          >
+            for cooking
+          </motion.span>
+        </motion.h1>
         <div className="my-12">
           {loadingRecipe ? (
             "Loading..."
@@ -95,7 +109,7 @@ const Page: NextPageWithLayout = () => {
               {userRecipe?.documents.map((recipe: Document) => (
                 <RecipeCard
                   key={recipe.id}
-                  id={recipe.id}
+         
                   author__notes={recipe.author__notes}
                   cooking__instruction={recipe.cooking__instruction}
                   cover__image={recipe.cover__image}
@@ -126,11 +140,11 @@ const Page: NextPageWithLayout = () => {
             {loadingRecipe ? (
               "Loading..."
             ) : (
-              <div className="card grid grid-cols-2 lg:grid-cols-6 gap-4">
+              <div className="card grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {recentRecipe?.documents.map((recipe: Document) => (
                   <HomeCard
                     key={recipe.id}
-                    id={recipe.id}
+              
                     author__notes={recipe.author__notes}
                     cooking__instruction={recipe.cooking__instruction}
                     cover__image={recipe.cover__image}

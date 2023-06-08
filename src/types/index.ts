@@ -1,10 +1,10 @@
-interface Document {
+export interface Document {
     collectionId?: string;
     createdAt?: string;
-    databaseId: string;
-    id: string;
-    permissions: string[];
-    updatedAt: string;
+    databaseId?: string;
+    id?: string;
+    permissions?: string[];
+    updatedAt?: string;
     author__notes: string;
     cooking__instruction: string[];
     cover__image: string;
@@ -12,5 +12,5 @@ interface Document {
     name: string;
     recipe_title: string;
     serving_size: number;
-    userId: string;
+    userId?: string;
   }
