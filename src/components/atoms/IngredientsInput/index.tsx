@@ -3,7 +3,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const CustomIngredientsInput: React.FC = ({
+const CustomIngredientsInput = ({
   setGetIngredients
 }:any) => {
   const [steps, setSteps] = useState<string[]>([]);

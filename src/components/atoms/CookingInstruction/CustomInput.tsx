@@ -7,7 +7,7 @@ interface customInputProps {
   setGetSteps: any;
 }
 
-const CustomInput: React.FC = ({ setGetSteps }: any) => {
+const CustomInput = ({ setGetSteps }: any) => {
   const [steps, setSteps] = useState<string[]>([]);
   const [currentStep, setCurrentStep] = useState<string>("");
 
