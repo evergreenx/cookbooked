@@ -7,7 +7,7 @@ import {
   ChevronUpIcon,
 } from "@radix-ui/react-icons";
 
-let sizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12];
+let sizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12 , 14, 16, 18, 20, 22, 24, 26, 28, 30];
 const SelectServing = ({
   setServingSize,
 }: {
@@ -38,12 +38,19 @@ const SelectServing = ({
             <Select.Label className="px-[25px] text-xs leading-[25px] text-mauve11">
               serving size
             </Select.Label>
+            {
+              sizes.map((size) => (
+                <SelectItem key={size} value={size.toString()}>{size}</SelectItem>
+              ))
 
-            <SelectItem value="1">1</SelectItem>
+
+            }
+
+            {/* <SelectItem value="1">1</SelectItem>
             <SelectItem value="2">2</SelectItem>
             <SelectItem value="3">3</SelectItem>
             <SelectItem value="4">4</SelectItem>
-            <SelectItem value="5">5</SelectItem>
+            <SelectItem value="5">5</SelectItem> */}
           </Select.Group>
 
           <Select.Separator className="h-[1px] bg-violet6 m-[5px]" />

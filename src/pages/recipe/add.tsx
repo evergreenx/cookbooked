@@ -4,7 +4,7 @@ import { Toaster } from "react-hot-toast";
 
 const add = () => {
   return (
-    <div className="p-4">
+    <div className="p-4  w-[50%] mx-auto ">
       <h1 className="text-2xl font-bold">Create Recipe</h1>
 
       <AddRecipeForm />

@@ -13,7 +13,7 @@ const Button = ({ children, onClick, size, disable, type }: ButtonProps) => {
   let sizeClass = "";
   switch (size) {
     case "small":
-      sizeClass = "px-2 py-1 text-xs rounded-[12px] text-white hover:bg-red-400 ";
+      sizeClass = "px-2 py-3 text-xs rounded-[17px] text-white hover:bg-red-400 ";
       break;
     case "medium":
       sizeClass = "px-10 py-3 text-sm rounded-[12px] text-white hover:bg-red-400 ";

@@ -133,7 +133,7 @@ const AddRecipeForm = () => {
                 required
                 onChange={handleChange}
                 onBlur={handleBlur}
-                className="rounded-3xl text-[#7c7c7c] text-sm p-4 bg-gray-50 outline-none w-full lg:w-[30%] "
+                className="rounded-3xl text-[#7c7c7c] text-sm p-4 bg-gray-50 outline-none w-full  "
                 value={values.title}
                 placeholder="Type your recipe name here"
               />
@@ -144,16 +144,15 @@ const AddRecipeForm = () => {
               variants={itemVariants}
               className="cover__image flex flex-col my-[20px]"
             >
-              {/* <motion.label className="text-sm font-semibold mb-[10px]">
+              <motion.label className="text-sm font-semibold mb-[10px]">
                 Add cover image
-              </motion.label> */}
+              </motion.label>
               {/* TODO : add image feature to use appwrite storage */}
 
-              {/* <FileUpload
+              <FileUpload
                 selectedImage={selectedImage}
                 setSelectedImage={setSelectedImage}
-
-              /> */}
+              />
             </motion.div>
 
             <motion.div
@@ -193,7 +192,7 @@ const AddRecipeForm = () => {
                 Author notes
               </label>
               <textarea
-                className="rounded-3xl text-[#7c7c7c] text-sm px-4 py-5 flex items-center bg-gray-50 outline-none w-full lg:w-[30%] overflow-hidden resize-none "
+                className="rounded-3xl text-[#7c7c7c] text-sm px-4 py-5 flex items-center bg-gray-50 outline-none w-full  overflow-hidden resize-none "
                 placeholder="Add tips and tricks 🤗"
                 name="authorNote"
                 value={values.authorNote}

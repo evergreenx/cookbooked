@@ -106,7 +106,7 @@ const Page: NextPageWithLayout = () => {
             "Loading..."
           ) : (
             <div className="card grid grid-cols-2 lg:grid-cols-3 gap-4">
-              {userRecipe?.documents.map((recipe: Document) => (
+              {userRecipe && userRecipe?.documents.map((recipe: Document) => (
                 <RecipeCard
                   key={recipe.id}
          
@@ -130,7 +130,7 @@ const Page: NextPageWithLayout = () => {
             </h1>
 
             <div className="flex items-center space-x-3">
-              <p className="font-semibold text-brandColor text-sm">see all</p>
+              <p className="font-semibold text-brandColor text-sm ">see all</p>
               <Image src={arrowIcon} alt="arrow" />
             </div>
           </div>
@@ -141,7 +141,7 @@ const Page: NextPageWithLayout = () => {
               "Loading..."
             ) : (
               <div className="card grid grid-cols-2 lg:grid-cols-4 gap-4">
-                {recentRecipe?.documents.map((recipe: Document) => (
+                {recentRecipe && recentRecipe?.documents.map((recipe: Document) => (
                   <HomeCard
                     key={recipe.id}
               

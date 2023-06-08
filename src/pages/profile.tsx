@@ -10,6 +10,9 @@ import { Toaster } from "react-hot-toast";
 import { Query } from "appwrite";
 import { databases } from "@/appwrite/config";
 import RecipeCard from "@/components/atoms/RecipeCard";
+import { emptyStateIcon } from "@/assets";
+import Button from "@/components/atoms/Button";
+import Link from "next/link";
 
 interface Document {
   collectionId?: string;
@@ -144,13 +147,28 @@ const Profile = () => {
           </h2>
         </motion.div>
       </motion.div>
+
+      {/* empty state for personal recipe */}
+
+      {userRecipe?.total === 0 && (
+        <div className="flex flex-col items-center justify-center my-10">
+          <Image src={emptyStateIcon} alt="empty state " className="my-5" />
+          <h2 className="text-[#c9c8c8] font-semibold text-[20px]  mb-5">
+         No Recipe yet 
+          </h2>
+
+          <Button size="small">
+            <Link href="/recipe/add">Create a Recipe</Link>
+          </Button>
+        </div>
+      )}
+
       {loadingRecipe ? (
         "Loading..."
       ) : (
         <div className="card grid grid-cols-2 lg:grid-cols-3 gap-4">
           {userRecipe?.documents.map((recipe: Document) => (
             <RecipeCard
-
               key={recipe.id}
               id={recipe.id}
               author__notes={recipe.author__notes}
