@@ -79,8 +79,8 @@ const EditProfileDialog = () => {
               <input
                 className="text-violet11 shadow-violet7 focus:shadow-violet8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
                 id="name"
-                defaultValue={user.name}
-                value={formik.values.username}
+                defaultValue={user?.name}
+                // value={formik.values.username}
                 onChange={formik.handleChange}
                 name="username"
                 onBlur={formik.handleBlur}
@@ -102,8 +102,9 @@ const EditProfileDialog = () => {
               <textarea
                 rows={5}
                 className="text-violet11 shadow-violet7 focus:shadow-violet8 inline-flex w-full flex-1 items-center justify-center rounded-[4px] p-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
-                defaultValue="Pedro Duarte"
-                value={formik.values.bio}
+                defaultValue={user?.prefs.bio}
+                
+                // value={formik.values.bio}
                 onChange={formik.handleChange}
                 name="bio"
                 onBlur={formik.handleBlur}

@@ -106,45 +106,10 @@ const Page: NextPageWithLayout = () => {
             "Loading..."
           ) : (
             <div className="card grid grid-cols-2 lg:grid-cols-3 gap-4">
-              {userRecipe && userRecipe?.documents.map((recipe: Document) => (
-                <RecipeCard
-                  key={recipe.id}
-         
-                  author__notes={recipe.author__notes}
-                  cooking__instruction={recipe.cooking__instruction}
-                  cover__image={recipe.cover__image}
-                  ingredients={recipe.ingredients}
-                  name={recipe.name}
-                  recipe_title={recipe.recipe_title}
-                  serving_size={recipe.serving_size}
-                />
-              ))}
-            </div>
-          )}
-        </div>
-
-        <>
-          <div className="recent__receipes flex items-center justify-between mt-10 ">
-            <h1 className="text-[#2E3E5C] font-semibold text-xl text-left ">
-              Recent recipes
-            </h1>
-
-            <div className="flex items-center space-x-3">
-              <p className="font-semibold text-brandColor text-sm ">see all</p>
-              <Image src={arrowIcon} alt="arrow" />
-            </div>
-          </div>
-
-          {/* recent recipe */}
-          <div className="my-[16px]">
-            {loadingRecipe ? (
-              "Loading..."
-            ) : (
-              <div className="card grid grid-cols-2 lg:grid-cols-4 gap-4">
-                {recentRecipe && recentRecipe?.documents.map((recipe: Document) => (
-                  <HomeCard
+              {userRecipe &&
+                userRecipe?.documents.map((recipe: Document) => (
+                  <RecipeCard
                     key={recipe.id}
-              
                     author__notes={recipe.author__notes}
                     cooking__instruction={recipe.cooking__instruction}
                     cover__image={recipe.cover__image}
@@ -154,7 +119,46 @@ const Page: NextPageWithLayout = () => {
                     serving_size={recipe.serving_size}
                   />
                 ))}
-              </div>
+            </div>
+          )}
+        </div>
+
+        <>
+          {/* recent recipe */}
+          <div className="my-[16px]">
+            {loadingRecipe ? (
+              "Loading..."
+            ) : (
+              <>
+                <div className="recent__receipes flex items-center justify-between my-10 ">
+                  <h1 className="text-[#2E3E5C] font-semibold text-xl text-left ">
+                    Recent recipes
+                  </h1>
+
+                  <div className="flex items-center space-x-3">
+                    <p className="font-semibold text-brandColor text-sm ">
+                      see all
+                    </p>
+                    <Image src={arrowIcon} alt="arrow" />
+                  </div>
+                </div>
+
+                <div className="card grid grid-cols-2 lg:grid-cols-4 gap-4">
+                  {recentRecipe &&
+                    recentRecipe?.documents?.map((recipe: Document) => (
+                      <HomeCard
+                        key={recipe.id}
+                        author__notes={recipe.author__notes}
+                        cooking__instruction={recipe.cooking__instruction}
+                        cover__image={recipe.cover__image}
+                        ingredients={recipe.ingredients}
+                        name={recipe.name}
+                        recipe_title={recipe.recipe_title}
+                        serving_size={recipe.serving_size}
+                      />
+                    ))}
+                </div>
+              </>
             )}
           </div>
         </>
