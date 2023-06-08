@@ -1,7 +1,8 @@
 import Button from "@/components/atoms/Button";
 import { UseUser } from "@/providers/AuthProviders";
+import { Poppins } from "next/font/google";
 import { useRouter } from "next/router";
-import React, { useEffect, ReactElement } from "react";
+import React, { useEffect, ReactElement, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { ID, Permission, Role, Query } from "appwrite";
 import { client, databases, account } from "@/appwrite/config";
@@ -10,9 +11,16 @@ import type { NextPageWithLayout } from "./_app";
 import Header from "@/components/molecules/Header";
 import AppLayout from "@/components/organism/Layout/AppLayout";
 import { FabButton } from "@/components/molecules/FabButton";
+import RecipeCard from "@/components/atoms/RecipeCard";
+import { arrowIcon } from "@/assets";
+import HomeCard from "@/components/atoms/RecipeCard/HomeCard";
 
 const Page: NextPageWithLayout = () => {
   const { user, logout, loading } = UseUser();
+  const [loadingRecipe, setLoadingRecipe] = useState<boolean>(false);
+  const [userRecipe, setUserRecipe] = useState<any>(null);
+  const [recentRecipe, setRecentRecipe] = useState<any>([]); // Updated the initial state to null
+
   const router = useRouter();
 
   console.log(user);
@@ -20,71 +28,50 @@ const Page: NextPageWithLayout = () => {
   useEffect(() => {
     const promise = databases.listDocuments(
       "647ba64bca1fc8a8992e",
-      "647ba64bca1fc8a8992e",
-      [Query.equal("userId", [user?.$id])]
-      // [Query.limit(1)]
-      // [Query.select(["createdAt", "DESC"])]
-      // [Query.equal("title", ["Iron Man"])]
+      "647ba64bca1fc8a8992e"
     );
 
     promise.then(
       function (response) {
-        console.log(response); // Success
+        setUserRecipe(response);
+        console.log(response);
+
+        // Success
       },
+
       function (error) {
         console.log(error); // Failure
       }
     );
+
+    const fetchRecentRecipes = async () => {
+      setLoadingRecipe(true);
+      const promise = databases.listDocuments(
+        "647ba64bca1fc8a8992e",
+        "647ba64bca1fc8a8992e",
+        [Query.orderDesc("$createdAt"), Query.limit(9)]
+      );
+
+      promise
+        .then(
+          function (response) {
+            setRecentRecipe(response);
+            console.log(response);
+
+            // Success
+          },
+
+          function (error) {
+            console.log(error); // Failure
+          }
+        )
+        .finally(() => {
+          setLoadingRecipe(false);
+        });
+    };
+
+    fetchRecentRecipes();
   }, []);
-
-  // useEffect(() => {
-  //   const promise = account.updatePrefs({
-  //     imageUrls: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png'
-  //   });
-
-  //   promise.then(
-  //     function (response) {
-  //       console.log(response , 'ref'); // Success
-  //     },
-  //     function (error) {
-  //       console.log(error); // Failure
-  //     }
-  //   );
-  // }, []);
-
-  // useEffect(() => {
-
-  //   const promise =  databases.createDocument(
-  //     "647ba64bca1fc8a8992e",
-  //     "647ba6595c710fc68a50",
-
-  //     ID.unique(),
-  //     {
-  //       cookTime: 10,
-  //       createdAt: "2023-06-04T01:05:20.168+00:00",
-  //       servings: 1,
-  //       recipe_name: "please soup",
-  //       ingredients: ["rice", "oil", "beans", "food"],
-  //       userId: user?.$id,
-  //       instructions: ["rinse  rice ", "boil rice "],
-  //       imageUrl:
-  //         "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
-  //     },
-  //     [
-  //       Permission.read(Role.user(user["$id"])),
-  //       Permission.write(Role.user(user["$id"])),
-  //     ]
-  //   );
-
-  //   promise.then(
-  //     function (response) {
-  //       console.log(response); // Success
-  //     },
-  //     function (error) {
-  //       console.log(error); // Failure
-  //     }
-  //   );
-  // }, [user]);
 
   if (loading) {
     return <div>loading...</div>;
@@ -95,26 +82,72 @@ const Page: NextPageWithLayout = () => {
     return <div>redirecting...</div>;
   }
   return (
-    <div className="flex flex-col items-center justify-center h-screen ">
-      <h1 className="text-center text-xl my-5">
-        {user && "logged in as " + user.name}
+    <>
+      <div className="flex flex-col justify-center p-10 ">
+        <h1 className="text-[#2E3E5C] font-semibold text-2xl text-left mt-[12px] mb-[16px]">
+          Find best recipes <br /> for cooking
+        </h1>
+        <div className="my-12">
+          {loadingRecipe ? (
+            "Loading..."
+          ) : (
+            <div className="card grid grid-cols-2 lg:grid-cols-3 gap-4">
+              {userRecipe?.documents.map((recipe: Document) => (
+                <RecipeCard
+                  key={recipe.id}
+                  id={recipe.id}
+                  author__notes={recipe.author__notes}
+                  cooking__instruction={recipe.cooking__instruction}
+                  cover__image={recipe.cover__image}
+                  ingredients={recipe.ingredients}
+                  name={recipe.name}
+                  recipe_title={recipe.recipe_title}
+                  serving_size={recipe.serving_size}
+                />
+              ))}
+            </div>
+          )}
+        </div>
 
-        <FabButton />
-        {user && user.prefs.imageUrls && (
-          <Image
-            src={user.prefs.imageUrls}
-            alt="profile"
-            width={20}
-            height={30}
-          />
-        )}
-      </h1>
-      <Button size="medium" onClick={() => logout()}>
-        logout
-      </Button>
+        <>
+          <div className="recent__receipes flex items-center justify-between mt-10 ">
+            <h1 className="text-[#2E3E5C] font-semibold text-xl text-left ">
+              Recent recipes
+            </h1>
 
-      <Toaster />
-    </div>
+            <div className="flex items-center space-x-3">
+              <p className="font-semibold text-brandColor text-sm">see all</p>
+              <Image src={arrowIcon} alt="arrow" />
+            </div>
+          </div>
+
+          {/* recent recipe */}
+          <div className="my-[16px]">
+            {loadingRecipe ? (
+              "Loading..."
+            ) : (
+              <div className="card grid grid-cols-2 lg:grid-cols-6 gap-4">
+                {recentRecipe?.documents.map((recipe: Document) => (
+                  <HomeCard
+                    key={recipe.id}
+                    id={recipe.id}
+                    author__notes={recipe.author__notes}
+                    cooking__instruction={recipe.cooking__instruction}
+                    cover__image={recipe.cover__image}
+                    ingredients={recipe.ingredients}
+                    name={recipe.name}
+                    recipe_title={recipe.recipe_title}
+                    serving_size={recipe.serving_size}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </>
+
+        <Toaster />
+      </div>
+    </>
   );
 };
 

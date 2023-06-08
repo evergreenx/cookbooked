@@ -5,6 +5,7 @@ import type { NextPage } from "next";
 import { UseUser, UserProvider } from "@/providers/AuthProviders";
 import Head from "next/head";
 import Header from "@/components/molecules/Header";
+import { Poppins } from "next/font/google";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -13,6 +14,11 @@ export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
+
+const poppins = Poppins({
+  weight: "400",
+  subsets: ["latin"],
+});
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
 
@@ -28,7 +34,9 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       </Head>
 
       <UserProvider>
-        <main className="w-full max-w-screen-2xl mx-auto">
+        <main
+          className={`w-full ${poppins.className}  poppins max-w-screen-2xl mx-auto`}
+        >
           <Header />
           <Component {...pageProps} />
         </main>

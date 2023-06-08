@@ -8,11 +8,14 @@ import {
 } from "@radix-ui/react-icons";
 import UserAvatar from "../Avatar";
 import Link from "next/link";
+import { UseUser } from "@/providers/AuthProviders";
 
 const UserDropMenu = () => {
   const [bookmarksChecked, setBookmarksChecked] = React.useState(true);
   const [urlsChecked, setUrlsChecked] = React.useState(false);
   const [person, setPerson] = React.useState("pedro");
+
+  const { logout } = UseUser();
 
   return (
     <DropdownMenu.Root>
@@ -31,19 +34,26 @@ const UserDropMenu = () => {
           sideOffset={10}
           alignOffset={5}
         >
-                 <Link href="/profile">
-          <DropdownMenu.Item className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
-       
+          <Link href="/profile">
+            <DropdownMenu.Item className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
               Profile{" "}
-          
-          </DropdownMenu.Item>
+            </DropdownMenu.Item>
           </Link>
-
 
           <DropdownMenu.Item className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
             {" "}
             Settings
-       
+          </DropdownMenu.Item>
+          <DropdownMenu.Separator className="h-[1px] bg-violet6 m-[5px]" />
+
+          <DropdownMenu.Item
+            onClick={() => {
+              logout();
+            }}
+            className="group cursor-pointer text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+          >
+            {" "}
+            Logout
           </DropdownMenu.Item>
           <DropdownMenu.Separator className="h-[1px] bg-violet6 m-[5px]" />
 
