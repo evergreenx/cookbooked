@@ -12,8 +12,8 @@ import { databases } from "@/appwrite/config";
 import RecipeCard from "@/components/atoms/RecipeCard";
 
 interface Document {
-  collectionId: string;
-  createdAt: string;
+  collectionId?: string;
+  createdAt?: string;
   databaseId: string;
   id: string;
   permissions: string[];
@@ -150,6 +150,7 @@ const Profile = () => {
         <div className="card grid grid-cols-2 lg:grid-cols-3 gap-4">
           {userRecipe?.documents.map((recipe: Document) => (
             <RecipeCard
+
               key={recipe.id}
               id={recipe.id}
               author__notes={recipe.author__notes}
