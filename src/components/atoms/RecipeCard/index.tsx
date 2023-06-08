@@ -35,7 +35,7 @@ const RecipeCard = ({
 
   return (
     <motion.div
-      className="relative w-80 rounded-2xl overflow-hidden shadow-lg"
+      className="relative lg:w-80 rounded-2xl overflow-hidden shadow-lg"
       initial="hidden"
       animate="visible"
       variants={cardVariants}
