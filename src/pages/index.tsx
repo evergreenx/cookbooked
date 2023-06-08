@@ -3,7 +3,7 @@ import { UseUser } from "@/providers/AuthProviders";
 import { useRouter } from "next/router";
 import React, { useEffect, ReactElement } from "react";
 import { Toaster } from "react-hot-toast";
-import { ID, Permission, Role } from "appwrite";
+import { ID, Permission, Role, Query } from "appwrite";
 import { client, databases, account } from "@/appwrite/config";
 import Image from "next/image";
 import type { NextPageWithLayout } from "./_app";
@@ -20,7 +20,11 @@ const Page: NextPageWithLayout = () => {
   useEffect(() => {
     const promise = databases.listDocuments(
       "647ba64bca1fc8a8992e",
-      "647ba6595c710fc68a50"
+      "647ba64bca1fc8a8992e",
+      [Query.equal("userId", [user?.$id])]
+      // [Query.limit(1)]
+      // [Query.select(["createdAt", "DESC"])]
+      // [Query.equal("title", ["Iron Man"])]
     );
 
     promise.then(
@@ -95,9 +99,7 @@ const Page: NextPageWithLayout = () => {
       <h1 className="text-center text-xl my-5">
         {user && "logged in as " + user.name}
 
-        <FabButton
-     
-      />
+        <FabButton />
         {user && user.prefs.imageUrls && (
           <Image
             src={user.prefs.imageUrls}

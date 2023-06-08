@@ -47,6 +47,7 @@ const FileUpload = ({ setSelectedImage, selectedImage }: FileUploadProps) => {
             >
               <input
                 type="file"
+                required
                 className="hidden"
                 accept="image/png, image/jpeg"
                 ref={fileInputRef}

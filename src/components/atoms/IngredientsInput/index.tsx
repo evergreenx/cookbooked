@@ -3,20 +3,18 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-interface customInputProps {
-  setGetSteps: any;
-}
-
-const CustomInput: React.FC = ({ setGetSteps }: any) => {
+const CustomIngredientsInput: React.FC = ({
+  setGetIngredients
+}:any) => {
   const [steps, setSteps] = useState<string[]>([]);
   const [currentStep, setCurrentStep] = useState<string>("");
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentStep(event.target.value);
   };
 
   const handleAddedInputChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>,
+    event: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
     const value = event.target.value;
@@ -38,13 +36,13 @@ const CustomInput: React.FC = ({ setGetSteps }: any) => {
     setSteps((prevSteps) => prevSteps.filter((_, i) => i !== index));
   };
 
-  const getAllCookingInstructionSteps = (): string[] => {
-    setGetSteps(steps);
+  const getAllIngredients = (): string[] => {
+
+    setGetIngredients(steps);
     return steps;
   };
 
-  getAllCookingInstructionSteps();
-
+  getAllIngredients();
   return (
     <div className="my-[15px]">
       <AnimatePresence>
@@ -56,10 +54,10 @@ const CustomInput: React.FC = ({ setGetSteps }: any) => {
             exit={{ opacity: 0, y: -20 }}
           >
             <span className="text-xs text-gray-400 uppercase">
-              Step {index + 1}{" "}
+              {index + 1}{" "}
             </span>
             <div className=" bg-gray-50 rounded-3xl px-4 py-5 flex items-center w-full lg:w-[30%] mb-[15px]">
-              <textarea
+              <input
                 className="text-[#7c7c7c]  bg-gray-50 w-full  outline-none text-sm overflow-hidden resize-none "
                 placeholder="Add one or multiple steps"
                 value={step}
@@ -72,9 +70,9 @@ const CustomInput: React.FC = ({ setGetSteps }: any) => {
           </motion.div>
         ))}
       </AnimatePresence>
-      <textarea
+      <input
         className="rounded-3xl text-[#7c7c7c] text-sm px-4 py-5 flex items-center bg-gray-50 outline-none w-full lg:w-[30%] overflow-hidden resize-none "
-        placeholder="Add one or multiple steps... 😋"
+        placeholder="Add Ingredients 🍟🍔🥠🥟🥠🌯"
         value={currentStep}
         onChange={handleInputChange}
         onBlur={handleInputBlur}
@@ -83,4 +81,4 @@ const CustomInput: React.FC = ({ setGetSteps }: any) => {
   );
 };
 
-export default CustomInput;
+export default CustomIngredientsInput;

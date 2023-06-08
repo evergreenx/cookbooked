@@ -1,5 +1,5 @@
 import { UseUser } from "@/providers/AuthProviders";
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import UserAvatar from "@/components/atoms/Avatar";
@@ -7,10 +7,62 @@ import AppLayout from "@/components/organism/Layout/AppLayout";
 import EditProfileDialog from "@/components/atoms/Dialog";
 import { useRouter } from "next/router";
 import { Toaster } from "react-hot-toast";
+import { Query } from "appwrite";
+import { databases } from "@/appwrite/config";
+import RecipeCard from "@/components/atoms/RecipeCard";
+
+interface Document {
+  collectionId: string;
+  createdAt: string;
+  databaseId: string;
+  id: string;
+  permissions: string[];
+  updatedAt: string;
+  author__notes: string;
+  cooking__instruction: string[];
+  cover__image: string;
+  ingredients: string[];
+  name: string;
+  recipe_title: string;
+  serving_size: number;
+  userId: string;
+}
 
 const Profile = () => {
   const { user, loading, loadingFeedback } = UseUser();
+  const [userRecipe, setUserRecipe] = useState<any>(null); // Updated the initial state to null
   const router = useRouter();
+  const [loadingRecipe, setLoadingRecipe] = useState<boolean>(false);
+
+  useEffect(() => {
+    setLoadingRecipe(true);
+    const promise = databases.listDocuments(
+      "647ba64bca1fc8a8992e",
+      "647ba64bca1fc8a8992e",
+      [Query.equal("userId", [user?.$id])]
+      // [Query.limit(1)]
+      // [Query.select(["createdAt", "DESC"])]
+      // [Query.equal("title", ["Iron Man"])]
+    );
+
+    promise
+      .then(
+        function (response) {
+          console.log(response.documents);
+
+          const documents = response;
+          setUserRecipe(documents);
+
+          // Success
+        },
+        function (error) {
+          console.log(error); // Failure
+        }
+      )
+      .finally(() => {
+        setLoadingRecipe(false);
+      });
+  }, [user]);
 
   if (loading) {
     return <div>loading...</div>;
@@ -74,7 +126,7 @@ const Profile = () => {
             Recipe
           </h3>
           <h2 className="text-xl text-[#2E3E5C] font-semibold text-center">
-            3
+            {userRecipe && userRecipe?.total}
           </h2>
         </motion.div>
 
@@ -92,6 +144,26 @@ const Profile = () => {
           </h2>
         </motion.div>
       </motion.div>
+      {loadingRecipe ? (
+        "Loading..."
+      ) : (
+        <div className="card grid grid-cols-2 lg:grid-cols-3 gap-4">
+          {userRecipe?.documents.map((recipe: Document) => (
+            <RecipeCard
+              key={recipe.id}
+              id={recipe.id}
+              author__notes={recipe.author__notes}
+              cooking__instruction={recipe.cooking__instruction}
+              cover__image={recipe.cover__image}
+              ingredients={recipe.ingredients}
+              name={recipe.name}
+              recipe_title={recipe.recipe_title}
+              serving_size={recipe.serving_size}
+            />
+          ))}
+        </div>
+      )}
+
       <Toaster />
     </motion.div>
   );

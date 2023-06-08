@@ -8,8 +8,17 @@ import {
 } from "@radix-ui/react-icons";
 
 let sizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12];
-const SelectServing = () => (
-  <Select.Root>
+const SelectServing = ({
+  setServingSize,
+}: {
+  setServingSize: React.Dispatch<React.SetStateAction<number>>;
+}) => (
+  <Select.Root
+    onValueChange={(value) => {
+      setServingSize(parseInt(value));
+    }}
+    required
+  >
     <Select.Trigger
       className="inline-flex lg:w-[80px] w-[100px] rounded-3xl items-center justify-center  px-[15px] py-[10px] text-[13px] leading-none h-[40px] gap-[5px] bg-gray-50 text-violet11  data-[placeholder]:text-violet9 outline-none"
       aria-label="Food"
@@ -47,31 +56,27 @@ const SelectServing = () => (
   </Select.Root>
 );
 
-const SelectItem = React.forwardRef<HTMLDivElement, { children: React.ReactNode; className?: string; value: string }>(
-  ({ children, className, value, ...props }, forwardedRef) => {
-    return (
-      <Select.Item
-        className={classnames(
-          "text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1",
-          className
-        )}
-        value={value}
-        {...props}
-        ref={forwardedRef}
-      >
-        <Select.ItemText>{children}</Select.ItemText>
-        <Select.ItemIndicator className="absolute left-0 w-[25px] inline-flex items-center justify-center">
-          <CheckIcon />
-        </Select.ItemIndicator>
-      </Select.Item>
-    );
-  }
-);
-
-
-
-
-
+const SelectItem = React.forwardRef<
+  HTMLDivElement,
+  { children: React.ReactNode; className?: string; value: string }
+>(({ children, className, value, ...props }, forwardedRef) => {
+  return (
+    <Select.Item
+      className={classnames(
+        "text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1",
+        className
+      )}
+      value={value}
+      {...props}
+      ref={forwardedRef}
+    >
+      <Select.ItemText>{children}</Select.ItemText>
+      <Select.ItemIndicator className="absolute left-0 w-[25px] inline-flex items-center justify-center">
+        <CheckIcon />
+      </Select.ItemIndicator>
+    </Select.Item>
+  );
+});
 
 SelectItem.displayName = "SelectItem";
 
