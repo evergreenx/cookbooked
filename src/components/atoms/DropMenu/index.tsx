@@ -9,8 +9,10 @@ import {
 import UserAvatar from "../Avatar";
 import Link from "next/link";
 import { UseUser } from "@/providers/AuthProviders";
+import { unionIcon } from "@/assets";
+import Image from "next/image";
 
-const UserDropMenu = () => {
+export const UserDropMenu = () => {
   const [bookmarksChecked, setBookmarksChecked] = React.useState(true);
   const [urlsChecked, setUrlsChecked] = React.useState(false);
   const [person, setPerson] = React.useState("pedro");
@@ -64,4 +66,57 @@ const UserDropMenu = () => {
   );
 };
 
-export default UserDropMenu;
+interface UserCardOptionsProps {
+  handleDeleteRecipe: () => void;
+}
+
+export const UserCardOptions = ({
+  handleDeleteRecipe,
+}: UserCardOptionsProps) => {
+  const { logout } = UseUser();
+
+  return (
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger asChild>
+        <div
+          className="w-[32px] h-[32px] 
+      cursor-pointer
+      top-4 right-4 absolute items-center flex justify-center z-50 bg-[#fff] rounded-full"
+        >
+          <Image src={unionIcon} alt="delete icon" />
+        </div>
+      </DropdownMenu.Trigger>
+
+      <DropdownMenu.Portal>
+        <DropdownMenu.Content
+          className="min-w-[100px]   bg-white rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=left]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+          sideOffset={10}
+          alignOffset={5}
+        >
+          <DropdownMenu.Item
+            onClick={() => {
+              handleDeleteRecipe();
+            }}
+            className="group text-[13px] 
+            cursor-pointer
+            leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+          >
+            delete
+          </DropdownMenu.Item>
+
+          <DropdownMenu.Item
+            className="group 
+          cursor-pointer
+          text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+          >
+            {" "}
+            edit
+          </DropdownMenu.Item>
+          <DropdownMenu.Separator className="h-[1px] bg-violet6 m-[5px]" />
+
+          <DropdownMenu.Arrow className="fill-white" />
+        </DropdownMenu.Content>
+      </DropdownMenu.Portal>
+    </DropdownMenu.Root>
+  );
+};

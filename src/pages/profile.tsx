@@ -18,7 +18,7 @@ interface Document {
   collectionId?: string;
   createdAt?: string;
   databaseId: string;
-  id: string;
+  $id: string;
   permissions: string[];
   updatedAt: string;
   author__notes: string;
@@ -55,6 +55,8 @@ const Profile = () => {
 
           const documents = response;
           setUserRecipe(documents);
+          // reload the page
+ 
 
           // Success
         },
@@ -169,8 +171,8 @@ const Profile = () => {
         <div className="card grid grid-cols-2 lg:grid-cols-3 gap-4">
           {userRecipe?.documents.map((recipe: Document) => (
             <RecipeCard
-              key={recipe.id}
-              id={recipe.id}
+              key={recipe.$id}
+              id={recipe.$id}
               author__notes={recipe.author__notes}
               cooking__instruction={recipe.cooking__instruction}
               cover__image={recipe.cover__image}
