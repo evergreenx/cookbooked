@@ -9,6 +9,9 @@ import { UseUser } from "@/providers/AuthProviders";
 import { Toaster } from "react-hot-toast";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { account } from "@/appwrite/config";
+import { googleIcon } from "@/assets";
+import Image from "next/image";
 
 const SignupSchema = Yup.object().shape({
   password: Yup.string()
@@ -80,7 +83,6 @@ const Signup = () => {
     },
   });
 
-
   const [open, setOpen] = React.useState(false);
 
   const handleSignIn = (e: { preventDefault: () => void }) => {
@@ -96,6 +98,15 @@ const Signup = () => {
     router.push("/");
   }
 
+  const handleGoogleLogin = () => {
+    account.createOAuth2Session(
+      "google",
+
+      "https://cookbooked-chi.vercel.app/",
+
+      "https://cookbooked-chi.vercel.app/auth/signin"
+    );
+  };
   return (
     <motion.div
       variants={containerVariants}
@@ -186,6 +197,15 @@ const Signup = () => {
           </Button>
         </motion.div>
       </form>
+
+      <div className="google_auth ">
+        <button
+          onClick={handleGoogleLogin}
+          className="my-5 w-[44px] h-[44px] bg-[#fff] text-center flex justify-center items-center rounded-3xl "
+        >
+          <Image src={googleIcon} alt="google icon" />
+        </button>
+      </div>
 
       <p className="text-[#2E3E5C] font-medium text-[15px] mt-[28px] ">
         Don’t have any account?{" "}
