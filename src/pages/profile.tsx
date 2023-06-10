@@ -57,7 +57,6 @@ const Profile = () => {
           const documents = response;
           setUserRecipe(documents);
           // reload the page
- 
 
           // Success
         },
@@ -70,7 +69,11 @@ const Profile = () => {
       });
   }, [user]);
 
-  if (loading && loadingRecipe ) {
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (loadingRecipe) {
     return <Loader />;
   }
 
@@ -103,16 +106,10 @@ const Profile = () => {
         className="userdetails px-8"
       >
         <h2 className="text-[#2E3E5C] font-semibold text-[20px] ">
-        {user?.name}
-
+          {user?.name}
         </h2>
 
-        <p className="text-sm text-[#9FA5C0]">
-          @
-          {user?.email}
-        </p>
-
-      
+        <p className="text-sm text-[#9FA5C0]">@{user?.email}</p>
       </motion.div>
 
       <motion.div
@@ -124,20 +121,15 @@ const Profile = () => {
           {user?.prefs.bio}
         </h2>
 
-        <p
-        className="text-sm text-[#9FA5C0]"
-        >
-           joined since:{" "}
+        <p className="text-sm text-[#9FA5C0]">
+          joined since:{" "}
           {new Date(user?.registration).toLocaleDateString("en-US", {
             year: "numeric",
             month: "long",
             day: "numeric",
           })}
-          
         </p>
       </motion.div>
-
-      
 
       <motion.div
         initial={{ opacity: 0, x: -10 }}
@@ -179,7 +171,7 @@ const Profile = () => {
         <div className="flex flex-col items-center justify-center my-10">
           <Image src={emptyStateIcon} alt="empty state " className="my-5" />
           <h2 className="text-[#c9c8c8] font-semibold text-[20px]  mb-5">
-         No Recipe yet 
+            No Recipe yet
           </h2>
 
           <Button size="small">
