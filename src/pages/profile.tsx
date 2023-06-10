@@ -104,6 +104,10 @@ const Profile = () => {
         <h2 className="text-[#2E3E5C] font-semibold text-[20px] capitalize">
           {user?.name}
         </h2>
+
+        <p className="text-sm text-[#9FA5C0]">
+          @{user.email}
+        </p>
       </motion.div>
 
       <motion.div

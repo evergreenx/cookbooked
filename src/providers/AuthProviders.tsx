@@ -53,6 +53,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     } catch (error) {
       console.error(error);
       setError("failed to load user");
+      toast.error("failed to load user");
     } finally {
       setLoading(false);
     }

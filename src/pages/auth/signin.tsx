@@ -104,7 +104,7 @@ const Signup = () => {
 
       "https://cookbooked-chi.vercel.app/",
 
-      "https://cookbooked-chi.vercel.app/auth/signin"
+      ""
     );
   };
   return (
