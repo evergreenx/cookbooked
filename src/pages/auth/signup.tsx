@@ -11,6 +11,7 @@ import { client } from "@/appwrite/config";
 import { UseUser } from "@/providers/AuthProviders";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Loader from "@/components/atoms/Loader";
 
 const SignupSchema = Yup.object().shape({
   username: Yup.string()
@@ -94,8 +95,9 @@ const Signup = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
+
 
   if (user) {
     router.push("/");

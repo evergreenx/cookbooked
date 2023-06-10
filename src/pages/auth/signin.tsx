@@ -12,6 +12,7 @@ import Link from "next/link";
 import { account } from "@/appwrite/config";
 import { googleIcon } from "@/assets";
 import Image from "next/image";
+import Loader from "@/components/atoms/Loader";
 
 const SignupSchema = Yup.object().shape({
   password: Yup.string()
@@ -91,7 +92,7 @@ const Signup = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   if (user) {
