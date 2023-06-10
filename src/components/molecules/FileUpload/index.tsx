@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ID, Permission, Role } from "appwrite";
 import React, { ChangeEvent, useRef, useState } from "react";
 import { UseUser } from "@/providers/AuthProviders";
+import { toast } from "react-hot-toast";
 
 interface FileUploadProps {
   selectedImage: any;
@@ -51,7 +52,10 @@ const FileUpload = ({ setSelectedImage, selectedImage  , setImageId}: FileUpload
             // Success
           },
           function (error) {
-            console.log(error, "fail upload"); // Failure
+            console.log(error, "fail upload");
+            
+            toast.error(error.message);
+            // Failure
           }
         )
         .finally(function () {

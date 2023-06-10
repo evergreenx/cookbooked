@@ -13,6 +13,7 @@ import RecipeCard from "@/components/atoms/RecipeCard";
 import { emptyStateIcon } from "@/assets";
 import Button from "@/components/atoms/Button";
 import Link from "next/link";
+import Loader from "@/components/atoms/Loader";
 
 interface Document {
   collectionId?: string;
@@ -69,8 +70,8 @@ const Profile = () => {
       });
   }, [user]);
 
-  if (loading) {
-    return <div>loading...</div>;
+  if (loading && loadingRecipe ) {
+    return <Loader />;
   }
 
   if (!user) {

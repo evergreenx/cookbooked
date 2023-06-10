@@ -16,6 +16,7 @@ import { arrowIcon } from "@/assets";
 import HomeCard from "@/components/atoms/RecipeCard/HomeCard";
 import { motion } from "framer-motion";
 import { Document } from "../types";
+import Loader from "@/components/atoms/Loader";
 
 const Page: NextPageWithLayout = () => {
   const { user, logout, loading } = UseUser();
@@ -76,8 +77,13 @@ const Page: NextPageWithLayout = () => {
   }, []);
 
   if (loading) {
-    return <div>loading...</div>;
+    return <Loader />;
   }
+
+  if (loadingRecipe || !userRecipe) {
+    return <Loader />;
+  }
+
 
   if (!user) {
     router.push("/auth/signin");

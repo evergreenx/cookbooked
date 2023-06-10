@@ -1,3 +1,4 @@
+import Loader from "@/components/atoms/Loader";
 import AddRecipeForm from "@/components/organism/Layout/AddRecipeForm.tsx";
 import { UseUser } from "@/providers/AuthProviders";
 import { useRouter } from "next/router";
@@ -7,7 +8,7 @@ import { Toaster } from "react-hot-toast";
 const Add = () => {
 
 
- const { user} =  UseUser();
+ const { user , loading} =  UseUser();
 
   const router = useRouter();
 
@@ -16,6 +17,10 @@ const Add = () => {
   //   router.push("/auth/signin");
   //   return <div>redirecting...</div>;
   // }
+
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <div className="p-4  lg:w-[50%] w-full mx-auto ">
       <h1 className="text-2xl font-bold">Create Recipe</h1>
