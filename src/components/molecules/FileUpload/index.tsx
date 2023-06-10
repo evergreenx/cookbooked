@@ -1,13 +1,20 @@
+import { storage } from "@/appwrite/config";
 import { cameraIcon } from "@/assets";
 import Image from "next/image";
+import { ID, Permission, Role } from "appwrite";
 import React, { ChangeEvent, useRef, useState } from "react";
+import { UseUser } from "@/providers/AuthProviders";
 
 interface FileUploadProps {
   selectedImage: any;
   setSelectedImage: any;
+  setImageId: any;
 }
 
-const FileUpload = ({ setSelectedImage, selectedImage }: FileUploadProps) => {
+const FileUpload = ({ setSelectedImage, selectedImage  , setImageId}: FileUploadProps) => {
+  const { user } = UseUser();
+
+  const [loadImage, setLoadImage] = useState(false);
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     const reader = new FileReader();
@@ -19,7 +26,38 @@ const FileUpload = ({ setSelectedImage, selectedImage }: FileUploadProps) => {
     };
 
     if (file) {
+      setLoadImage(true);
+
       reader.readAsDataURL(file);
+      const promise = storage.createFile(
+        "648496feb5ff0dcec87d",
+        ID.unique(),
+        file,
+        [
+          Permission.write(Role.user(user["$id"])),
+
+          Permission.read(Role.any()), // Anyone can view this document
+          Permission.update(Role.user(user["$id"])),
+          Permission.delete(Role.user(user["$id"])),
+        ]
+      );
+
+      promise
+        .then(
+          function (response) {
+            console.log(response, "upload");
+            
+            setImageId(response.$id)
+            // Success
+          },
+          function (error) {
+            console.log(error, "fail upload"); // Failure
+          }
+        )
+        .finally(function () {
+          // To do something here
+          setLoadImage(false);
+        });
     }
   };
 
@@ -32,6 +70,13 @@ const FileUpload = ({ setSelectedImage, selectedImage }: FileUploadProps) => {
   };
   return (
     <div>
+      {loadImage && (
+        <div className="absolute top-0 left-0 w-full h-full bg-[#0000008a] flex items-center justify-center">
+          <div className="bg-white rounded-md p-5">
+            <p className="text-center">Uploading...</p>
+          </div>
+        </div>
+      )}
       <div className="border flex-col rounded-2xl border-dashed text-[#7c7c7c86] p-1 h-[120px] w-[150px] outline-none text-xs text-center cursor-pointer items-center justify-center flex">
         {selectedImage ? (
           <Image src={selectedImage} alt="Selected" width="80" height={"80"} />

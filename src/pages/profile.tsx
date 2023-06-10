@@ -101,13 +101,17 @@ const Profile = () => {
         animate={{ opacity: 1, y: 0 }}
         className="userdetails px-8"
       >
-        <h2 className="text-[#2E3E5C] font-semibold text-[20px] capitalize">
-          {user?.name}
+        <h2 className="text-[#2E3E5C] font-semibold text-[20px] ">
+        {user?.name}
+
         </h2>
 
         <p className="text-sm text-[#9FA5C0]">
-          @{user.email}
+          @
+          {user?.email}
         </p>
+
+      
       </motion.div>
 
       <motion.div
@@ -118,7 +122,21 @@ const Profile = () => {
         <h2 className="text-[#A9A9A9] font-normal text-sm capitalize">
           {user?.prefs.bio}
         </h2>
+
+        <p
+        className="text-sm text-[#9FA5C0]"
+        >
+           joined since:{" "}
+          {new Date(user?.registration).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+          
+        </p>
       </motion.div>
+
+      
 
       <motion.div
         initial={{ opacity: 0, x: -10 }}

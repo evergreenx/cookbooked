@@ -5,7 +5,7 @@ import Button from "@/components/atoms/Button";
 import { cameraIcon } from "@/assets";
 import Image from "next/image";
 import FileUpload from "@/components/molecules/FileUpload";
-import SelectServing from "@/components/atoms/SelectServing";
+import SelectServing from "@/components/atoms/Select";
 import CustomInput from "@/components/atoms/CookingInstruction/CustomInput";
 import { ID, Permission, Role } from "appwrite";
 import { databases } from "@/appwrite/config";
@@ -13,6 +13,7 @@ import { UseUser } from "@/providers/AuthProviders";
 import CustomIngredientsInput from "@/components/atoms/IngredientsInput";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/router";
+import SelectCategory from "@/components/atoms/Select/SelectCategory";
 
 const AddRecipeForm = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -23,6 +24,9 @@ const AddRecipeForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [getIngredient, setGetIngredients] = useState([]);
   const [ServingSize, setServingSize] = useState(1);
+  const [category, setCategory] = useState('');
+
+  const [imageId, setImageId] = useState<string | null>(null);
 
   const { user } = UseUser();
 
@@ -59,12 +63,12 @@ const AddRecipeForm = () => {
             // cover__image: values.coverImage,
             userId: user?.$id,
             name: user?.name,
-            cover__image:
-              "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8OXx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
+            cover__image: `https://cloud.appwrite.io/v1/storage/buckets/${"648496feb5ff0dcec87d"}/files/${imageId}/view?project=647a8967b6ee81b46589`,
             serving_size: ServingSize,
             author__notes: values.authorNote,
             cooking__instruction: getCookingSteps,
             ingredients: getIngredient,
+            category: category,
           };
 
           const promise = databases.createDocument(
@@ -150,6 +154,7 @@ const AddRecipeForm = () => {
               {/* TODO : add image feature to use appwrite storage */}
 
               <FileUpload
+                setImageId={setImageId}
                 selectedImage={selectedImage}
                 setSelectedImage={setSelectedImage}
               />
@@ -164,6 +169,18 @@ const AddRecipeForm = () => {
               </motion.label>
 
               <SelectServing setServingSize={setServingSize} />
+            </motion.div>
+
+            <motion.div
+              variants={itemVariants}
+              className="serving__sizes my-[20px] flex flex-col "
+            >
+              <motion.label className="text-sm  font-semibold mb-[10px]">
+              Recipe Category
+
+              </motion.label>
+
+              <SelectCategory setCategory={setCategory} />
             </motion.div>
 
             <motion.div
