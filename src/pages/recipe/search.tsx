@@ -29,7 +29,7 @@ const Search = () => {
       // [Query.equal("userId", [user?.$id])]
       // [Query.limit(1)]
       // [Query.select(["createdAt", "DESC"])]
-      [Query.equal("recipe_title", [search])]
+      [Query.search("recipe_title", search)]
     );
 
     promise

@@ -109,14 +109,14 @@ const Page: NextPageWithLayout = () => {
           </motion.span>
         </motion.h1>
 
-        <Link className="search my-8 w-[50%] mx-auto" href="/recipe/search">
+        <Link className="search my-8 w-full lg:w-[50%] mx-auto" href="/recipe/search">
           <SearchInput />
         </Link>
         <div className="my-12">
           {loadingRecipe ? (
             "Loading..."
           ) : (
-            <div className="card grid grid-cols-1 lg:grid-cols-3 gap-4 items-center justify-center mx-auto">
+            <div className="card grid grid-cols-1 lg:grid-cols-3 gap-4 items-center justify-center mx-auto content-center">
               {userRecipe &&
                 userRecipe?.documents.map((recipe: Document) => (
                   <RecipeCard
@@ -154,7 +154,7 @@ const Page: NextPageWithLayout = () => {
                   </div>
                 </div>
 
-                <div className="card grid grid-cols-1 lg:grid-cols-4 gap-4">
+                <div className="card grid grid-cols-1 lg:grid-cols-4 gap-4 content-center">
                   {recentRecipe &&
                     recentRecipe?.documents?.map((recipe: Document) => (
                       <HomeCard
