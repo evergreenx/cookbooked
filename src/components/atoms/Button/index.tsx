@@ -43,7 +43,7 @@ const Button = ({ children, onClick, size, disable, type }: ButtonProps) => {
 
   return (
     <button
-      className={`bg-brandColor  items-center  shadow-2xl shadow-slate-400  font-bold ${sizeClass} disabled:opacity-25`}
+      className={`bg-brandColor flex  items-center justify-center  shadow-2xl shadow-slate-400  font-bold ${sizeClass} disabled:opacity-25`}
       disabled={disable}
       onClick={onClick}
       type={type}

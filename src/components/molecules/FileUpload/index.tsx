@@ -46,13 +46,13 @@ const FileUpload = ({ setSelectedImage, selectedImage  , setImageId}: FileUpload
       promise
         .then(
           function (response) {
-            console.log(response, "upload");
+            (response, "upload");
             
             setImageId(response.$id)
             // Success
           },
           function (error) {
-            console.log(error, "fail upload");
+            (error, "fail upload");
             
             toast.error(error.message);
             // Failure

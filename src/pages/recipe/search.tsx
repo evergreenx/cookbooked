@@ -35,7 +35,7 @@ const Search = () => {
     promise
       .then(
         function (response) {
-          console.log(response.documents);
+          (response.documents);
 
           const documents = response;
           setSearchResult(documents);
@@ -44,7 +44,7 @@ const Search = () => {
           // Success
         },
         function (error) {
-          console.log(error); // Failure
+          (error); // Failure
         }
       )
       .finally(() => {
@@ -88,7 +88,8 @@ const Search = () => {
             {/* show only there is result */}
             {
               <p className="text-[#A9A9A9] text-[11px] font-normal">
-                {seachResults?.documents.length} recipes found
+                {seachResults?.documents.length} recipe{""}
+                {seachResults?.documents.length > 1 ? "s" : ""} found
               </p>
             }
           </div>

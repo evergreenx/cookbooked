@@ -49,7 +49,7 @@ const AddRecipeForm = ({ setShowSuccessDialog }: Props) => {
     visible: { opacity: 1, y: 0 },
   };
 
-  console.log("cookingDuration", cookingDuration);
+  ("cookingDuration", cookingDuration);
   return (
     <motion.div initial="hidden" animate="visible" variants={containerVariants}>
       <Formik
@@ -105,7 +105,7 @@ const AddRecipeForm = ({ setShowSuccessDialog }: Props) => {
                 // Success
               },
               function (error) {
-                console.log(error);
+                (error);
 
                 toast.error(error.message);
 

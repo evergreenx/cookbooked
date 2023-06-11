@@ -14,6 +14,7 @@ import { emptyStateIcon } from "@/assets";
 import Button from "@/components/atoms/Button";
 import Link from "next/link";
 import Loader from "@/components/atoms/Loader";
+import UserTabs from "@/components/atoms/Tab";
 
 interface Document {
   collectionId?: string;
@@ -52,7 +53,7 @@ const Profile = () => {
     promise
       .then(
         function (response) {
-          console.log(response.documents);
+          (response.documents);
 
           const documents = response;
           setUserRecipe(documents);
@@ -61,7 +62,7 @@ const Profile = () => {
           // Success
         },
         function (error) {
-          console.log(error); // Failure
+          (error); // Failure
         }
       )
       .finally(() => {
@@ -73,9 +74,6 @@ const Profile = () => {
     return <Loader />;
   }
 
-  if (loadingRecipe) {
-    return <Loader />;
-  }
 
   if (!user) {
     router.push("/auth/signin");
@@ -167,38 +165,13 @@ const Profile = () => {
 
       {/* empty state for personal recipe */}
 
-      {userRecipe?.total === 0 && (
-        <div className="flex flex-col items-center justify-center my-10">
-          <Image src={emptyStateIcon} alt="empty state " className="my-5" />
-          <h2 className="text-[#c9c8c8] font-semibold text-[20px]  mb-5">
-            No Recipe yet
-          </h2>
+ 
 
-          <Button size="small">
-            <Link href="/recipe/add">Create a Recipe</Link>
-          </Button>
-        </div>
-      )}
+      <UserTabs userRecipe={userRecipe}
 
-      {loadingRecipe ? (
-        "Loading..."
-      ) : (
-        <div className="card grid grid-cols-2 lg:grid-cols-3 gap-4">
-          {userRecipe?.documents.map((recipe: Document) => (
-            <RecipeCard
-              key={recipe.$id}
-              id={recipe.$id}
-              author__notes={recipe.author__notes}
-              cooking__instruction={recipe.cooking__instruction}
-              cover__image={recipe.cover__image}
-              ingredients={recipe.ingredients}
-              name={recipe.name}
-              recipe_title={recipe.recipe_title}
-              serving_size={recipe.serving_size}
-            />
-          ))}
-        </div>
-      )}
+loadingRecipe={loadingRecipe}
+      
+      />
 
       <Toaster />
     </motion.div>
@@ -208,6 +181,6 @@ const Profile = () => {
 export default Profile;
 
 Profile.getLayout = function getLayout(page: ReactElement) {
-  console.log(page, "page");
+  (page, "page");
   return <AppLayout>{page}</AppLayout>;
 };

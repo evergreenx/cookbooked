@@ -3,6 +3,7 @@ export interface Document {
     createdAt?: string;
     databaseId?: string;
     id?: string;
+    $id?: string;
     permissions?: string[];
     updatedAt?: string;
     author__notes: string;

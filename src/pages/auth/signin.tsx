@@ -124,7 +124,9 @@ const Signup = () => {
         className="text-[#9FA5C0] font-medium text-[15px] text-center mt-[8px] mb-[32px] tracking-[0.5px]
       "
       >
-        Please enter your account here
+        Please enter your email 
+        <br/>
+        and password to continue
       </p>
 
       <form onSubmit={handleSignIn}>
@@ -173,7 +175,9 @@ const Signup = () => {
         <motion.div variants={inputVariants} className="button mt-[20px]">
           <Button size="large" type="submit" disable={!formik.isValid}>
             {loadingFeedback ? (
-              <div role="status">
+              <div role="status "
+              className="flex justify-center items-center"
+              >
                 <svg
                   aria-hidden="true"
                   className="w-6 h-6 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-[#F5484A]"

@@ -32,14 +32,14 @@ const RecipeCard = ({
 
     promise.then(
       function (response) {
-        console.log(response);
+        (response);
         toast.success("Recipe deleted successfully");
 
         router.reload();
         // Success
       },
       function (error) {
-        console.log(error);
+        (error);
         toast.error(error.message);
         // Failure
       }

@@ -115,7 +115,7 @@ const EditProfileDialog = () => {
               <div className="text-xs text-red-800">{formik.errors.bio}</div>
             )}
 
-            <div className="mt-[25px] flex justify-end">
+            <div className="mt-[25px] flex justify-end space-x-6">
               <Dialog.Close asChild>
                 <Button size="outline">cancel</Button>
               </Dialog.Close>
