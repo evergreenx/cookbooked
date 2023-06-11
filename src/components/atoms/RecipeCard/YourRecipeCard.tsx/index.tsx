@@ -3,12 +3,12 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Document } from "@/types";
 import { unionIcon } from "@/assets";
-import { FavCardOptions, UserCardOptions } from "../DropMenu";
+import { UserCardOptions } from "../../DropMenu";
 import { databases } from "@/appwrite/config";
 import { toast } from "react-hot-toast";
 import router from "next/router";
 
-const RecipeCard = ({
+const YourRecipeCard = ({
   name,
   id,
   recipe_title,
@@ -23,27 +23,25 @@ const RecipeCard = ({
     visible: { opacity: 1, scale: 1, duration: 0.8, delay: 0.5 },
   };
 
-  const handleAddToFav = () => {
-    const promise = databases.updateDocument(
+  const handleDeleteRecipe = () => {
+    const promise = databases.deleteDocument(
       "647ba64bca1fc8a8992e",
       "647ba64bca1fc8a8992e",
-      `${id}`,
-      {
-        isFavorite: true,
-      }
+      `${id}`
     );
 
     promise.then(
       function (response) {
-        console.log(response);
+        response;
+        toast.success("Recipe deleted successfully");
 
-        toast.success("Recipe bookmarked successfully");
-
+        router.reload();
         // Success
       },
       function (error) {
-        console.log(error); // Failure
+        error;
         toast.error(error.message);
+        // Failure
       }
     );
   };
@@ -53,13 +51,12 @@ const RecipeCard = ({
       className="relative   lg:w-[250px] lg:h-[250px] h-[200px]  w-full rounded-2xl overflow-hidden shadow-lg"
       initial="hidden"
       animate="visible"
-      variants={cardVariants}
-      // whileHover={{ scale: 1.1 }}
+
     >
-      <FavCardOptions handleAddToFav={handleAddToFav} />
+      <UserCardOptions handleDeleteRecipe={handleDeleteRecipe} />
       <Image
         src={cover__image}
-        alt="Picture of the author"
+        alt="recipe  image"
         width={400}
         height={400}
         className="rounded-2xl h-full w-full object-cover"
@@ -90,4 +87,4 @@ const RecipeCard = ({
   );
 };
 
-export default RecipeCard;
+export default YourRecipeCard;

@@ -9,7 +9,7 @@ import {
 import UserAvatar from "../Avatar";
 import Link from "next/link";
 import { UseUser } from "@/providers/AuthProviders";
-import { unionIcon } from "@/assets";
+import { favIcon, unionIcon } from "@/assets";
 import Image from "next/image";
 
 export const UserDropMenu = () => {
@@ -67,7 +67,8 @@ export const UserDropMenu = () => {
 };
 
 interface UserCardOptionsProps {
-  handleDeleteRecipe: () => void;
+  handleDeleteRecipe?: () => void;
+  handleAddToFav?: () => void;
 }
 
 export const UserCardOptions = ({
@@ -117,6 +118,24 @@ export const UserCardOptions = ({
           <DropdownMenu.Arrow className="fill-white" />
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
+    </DropdownMenu.Root>
+  );
+};
+
+export const FavCardOptions = ({ handleAddToFav }: UserCardOptionsProps) => {
+  const { logout } = UseUser();
+
+  return (
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger onClick={handleAddToFav} asChild>
+        <div
+          className="w-[32px] h-[32px] 
+      cursor-pointer
+      top-4 right-4 absolute items-center flex justify-center z-50 bg-[#fff] rounded-full"
+        >
+          <Image src={favIcon} alt="fav" />
+        </div>
+      </DropdownMenu.Trigger>
     </DropdownMenu.Root>
   );
 };

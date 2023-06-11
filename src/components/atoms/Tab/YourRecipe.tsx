@@ -6,11 +6,12 @@ import { databases } from "@/appwrite/config";
 import { Query } from "appwrite";
 import { UseUser } from "@/providers/AuthProviders";
 import Loader from "@/components/atoms/Loader";
-import RecipeCard from "../RecipeCard";
+
 import { emptyStateIcon } from "@/assets";
 import Image from "next/image";
 import Button from "../Button";
 import Link from "next/link";
+import YourRecipeCard from "../RecipeCard/YourRecipeCard.tsx";
 
 const YourRecipe = ({}) => {
   const { user } = UseUser();
@@ -64,7 +65,7 @@ const YourRecipe = ({}) => {
       ) : (
         <div className="card grid grid-cols-2 lg:grid-cols-3 gap-4">
           {userRecipe?.documents.map((recipe: Document) => (
-            <RecipeCard
+            <YourRecipeCard
               key={recipe.$id}
               id={recipe.$id}
               author__notes={recipe.author__notes}

@@ -10,5 +10,7 @@ export { default as googleIcon  } from './svgs/google.svg';
 export { default as searchIcon  } from './svgs/search.svg';
 export { default as filterIcon  } from './svgs/filter.svg';
 export { default as emptySearch  } from './svgs/emptyseach.svg';
+export { default as favIcon  } from './svgs/fav.svg';
+
 
 

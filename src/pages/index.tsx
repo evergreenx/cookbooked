@@ -4,11 +4,11 @@ import { Poppins } from "next/font/google";
 import { useRouter } from "next/router";
 import React, { useEffect, ReactElement, useState } from "react";
 import { Toaster } from "react-hot-toast";
-import { ID, Permission, Role, Query } from "appwrite";
-import { client, databases, account } from "@/appwrite/config";
+import { Query } from "appwrite";
+import { databases } from "@/appwrite/config";
 import Image from "next/image";
 import type { NextPageWithLayout } from "./_app";
-import Header from "@/components/molecules/Header";
+
 import AppLayout from "@/components/organism/Layout/AppLayout";
 import { FabButton } from "@/components/molecules/FabButton";
 import RecipeCard from "@/components/atoms/RecipeCard";
@@ -124,7 +124,8 @@ const Page: NextPageWithLayout = () => {
               {userRecipe &&
                 userRecipe?.documents.map((recipe: Document) => (
                   <RecipeCard
-                    key={recipe.id}
+                    key={recipe.$id}
+                    id={recipe.$id}
                     author__notes={recipe.author__notes}
                     cooking__instruction={recipe.cooking__instruction}
                     cover__image={recipe.cover__image}
