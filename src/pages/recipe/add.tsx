@@ -10,18 +10,22 @@ import { Toaster } from "react-hot-toast";
 const Add = () => {
   const { user, loading } = UseUser();
 
-  const [showSuccessDialog, setShowSuccessDialog] = useState<boolean>(true);
+  const [showSuccessDialog, setShowSuccessDialog] = useState<boolean>(false);
 
   const router = useRouter();
+
+ 
+  if (loading) {
+    return <Loader />;
+  }
+
 
   if (!user) {
     router.push("/auth/signin");
     return <div>redirecting...</div>;
   }
 
-  if (loading) {
-    return <Loader />;
-  }
+
   return (
     <div className="p-4  lg:w-[50%] w-full mx-auto ">
       <h1 className="text-2xl font-bold">Create Recipe</h1>
