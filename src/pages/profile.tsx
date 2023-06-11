@@ -181,6 +181,6 @@ loadingRecipe={loadingRecipe}
 export default Profile;
 
 Profile.getLayout = function getLayout(page: ReactElement) {
-  (page, "page");
+
   return <AppLayout>{page}</AppLayout>;
 };

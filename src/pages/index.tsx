@@ -28,7 +28,7 @@ const Page: NextPageWithLayout = () => {
 
   const router = useRouter();
 
-  (user);
+  user;
 
   useEffect(() => {
     const promise = databases.listDocuments(
@@ -39,13 +39,13 @@ const Page: NextPageWithLayout = () => {
     promise.then(
       function (response) {
         setUserRecipe(response);
-        (response);
+        response;
 
         // Success
       },
 
       function (error) {
-        (error); // Failure
+        error; // Failure
       }
     );
 
@@ -61,13 +61,13 @@ const Page: NextPageWithLayout = () => {
         .then(
           function (response) {
             setRecentRecipe(response);
-            (response);
+            response;
 
             // Success
           },
 
           function (error) {
-            (error); // Failure
+            error; // Failure
           }
         )
         .finally(() => {
@@ -92,8 +92,7 @@ const Page: NextPageWithLayout = () => {
   }
   return (
     <>
-
-    <FabButton />
+      <FabButton />
       <div className="flex flex-col justify-center p-10 ">
         <motion.h1
           className="text-[#2E3E5C]  text-[30px] lg:text-[50px] font-bold text-left tracking-tighter leading-tight"
@@ -111,7 +110,10 @@ const Page: NextPageWithLayout = () => {
           </motion.span>
         </motion.h1>
 
-        <Link className="search my-8 w-full lg:w-[50%] mx-auto" href="/recipe/search">
+        <Link
+          className="search my-8 w-full lg:w-[50%] mx-auto"
+          href="/recipe/search"
+        >
           <SearchInput />
         </Link>
         <div className="my-12">
@@ -185,6 +187,5 @@ const Page: NextPageWithLayout = () => {
 export default Page;
 
 Page.getLayout = function getLayout(page: ReactElement) {
-  (page, "page");
   return <AppLayout>{page}</AppLayout>;
 };
