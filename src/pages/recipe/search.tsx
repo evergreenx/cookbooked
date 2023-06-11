@@ -107,7 +107,7 @@ const Search = () => {
         </div>
       )}
 
-      <div className="results  grid grid-cols-1 lg:grid-cols-4 gap-4 items-center justify-center mx-auto my-[70px]">
+      <div className="results  grid grid-cols-2 lg:grid-cols-4 gap-4 items-center justify-center mx-auto my-[70px]">
         {seachResults?.documents.map((recipe: Document) => (
           <SearchCard
             key={recipe.id}

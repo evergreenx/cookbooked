@@ -116,7 +116,7 @@ const Page: NextPageWithLayout = () => {
           {loadingRecipe ? (
             "Loading..."
           ) : (
-            <div className="card grid grid-cols-1 lg:grid-cols-3 gap-4 items-center justify-center mx-auto content-center">
+            <div className="card grid grid-cols-2 lg:grid-cols-3 gap-4 items-center justify-center mx-auto content-center">
               {userRecipe &&
                 userRecipe?.documents.map((recipe: Document) => (
                   <RecipeCard
@@ -154,7 +154,7 @@ const Page: NextPageWithLayout = () => {
                   </div>
                 </div>
 
-                <div className="card grid grid-cols-1 lg:grid-cols-4 gap-4 content-center">
+                <div className="card grid grid-cols-2  lg:grid-cols-4 gap-4 content-center">
                   {recentRecipe &&
                     recentRecipe?.documents?.map((recipe: Document) => (
                       <HomeCard

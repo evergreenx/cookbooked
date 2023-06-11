@@ -25,7 +25,7 @@ const SearchCard = ({
 
   return (
     <motion.div
-      className="relative  w-[190px] h-[190px] rounded-2xl overflow-hidden shadow-lg"
+      className="relative w-full  lg:w-[190px] h-[190px] rounded-2xl overflow-hidden shadow-lg"
       initial="hidden"
       animate="visible"
       variants={cardVariants}
