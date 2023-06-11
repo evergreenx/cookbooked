@@ -129,40 +129,44 @@ const Profile = () => {
         </p>
       </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, x: -10 }}
-        animate={{ opacity: 1, x: 0 }}
-        className="userreceipeinfo px-8 my-6 flex space-x-[47px]"
-      >
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="info"
-        >
-          <h3 className="text-[#9FA5C0] font-normal text-xs capitalize">
-            Recipe
-          </h3>
-          <h2 className="text-xl text-[#2E3E5C] font-semibold text-center">
-            {userRecipe && userRecipe?.total}
-          </h2>
-        </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-          className="info"
-        >
-          <h3 className="text-[#9FA5C0] font-normal text-xs capitalize">
-            Saved Recipe
-          </h3>
-          <h2 className="text-xl text-[#2E3E5C] font-semibold text-center">
-            3
-          </h2>
-        </motion.div>
-      </motion.div>
+{
+  userRecipe && 
+  <motion.div
+    initial={{ opacity: 0, x: -10 }}
+    animate={{ opacity: 1, x: 0 }}
+    className="userreceipeinfo px-8 my-6 flex space-x-[47px]"
+  >
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.2 }}
+      className="info"
+    >
+      <h3 className="text-[#9FA5C0] font-normal text-xs capitalize">
+        Recipe
+      </h3>
+      <h2 className="text-xl text-[#2E3E5C] font-semibold text-center">
+        {userRecipe && userRecipe?.total}
+      </h2>
+    </motion.div>
 
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.4 }}
+      className="info"
+    >
+      <h3 className="text-[#9FA5C0] font-normal text-xs capitalize">
+        Saved Recipe
+      </h3>
+      <h2 className="text-xl text-[#2E3E5C] font-semibold text-center">
+        3
+      </h2>
+    </motion.div>
+  </motion.div>
+
+}
       {/* empty state for personal recipe */}
 
  
