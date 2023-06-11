@@ -7,3 +7,4 @@ export {default as arrowIcon} from './svgs/arrow.svg'
 export {default as emptyStateIcon} from './svgs/emptyrecipe.svg'
 export {default as unionIcon} from './svgs/union.svg'
 export { default as googleIcon  } from './svgs/google.svg';
+export { default as searchIcon  } from './svgs/search.svg';

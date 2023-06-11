@@ -14,8 +14,13 @@ import CustomIngredientsInput from "@/components/atoms/IngredientsInput";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/router";
 import SelectCategory from "@/components/atoms/Select/SelectCategory";
+import CookingDurationSlider from "@/components";
 
-const AddRecipeForm = () => {
+interface Props {
+  setShowSuccessDialog: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const AddRecipeForm = ({ setShowSuccessDialog }: Props) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const router = useRouter();
@@ -24,7 +29,8 @@ const AddRecipeForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [getIngredient, setGetIngredients] = useState([]);
   const [ServingSize, setServingSize] = useState(1);
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState("");
+  const [cookingDuration, setCookingDuration] = useState(0);
 
   const [imageId, setImageId] = useState<string | null>(null);
 
@@ -43,6 +49,7 @@ const AddRecipeForm = () => {
     visible: { opacity: 1, y: 0 },
   };
 
+  console.log("cookingDuration", cookingDuration);
   return (
     <motion.div initial="hidden" animate="visible" variants={containerVariants}>
       <Formik
@@ -69,6 +76,7 @@ const AddRecipeForm = () => {
             cooking__instruction: getCookingSteps,
             ingredients: getIngredient,
             category: category,
+            cooking__duration: cookingDuration,
           };
 
           const promise = databases.createDocument(
@@ -92,9 +100,9 @@ const AddRecipeForm = () => {
               function (response) {
                 toast.success("recipe created 🔥⛄");
 
-                // Success
+                setShowSuccessDialog(true);
 
-                router.push("/");
+                // Success
               },
               function (error) {
                 console.log(error);
@@ -162,6 +170,21 @@ const AddRecipeForm = () => {
 
             <motion.div
               variants={itemVariants}
+              className="cooking__duration my-[20px]"
+            >
+              <label className="text-sm font-semibold mb-[16px] ">
+                Cooking Duration{" "}
+                <span className="text-[#9FA5C0]">(in minutes)</span>
+              </label>
+
+              <CookingDurationSlider
+                setCookingDuration={setCookingDuration}
+                cookingDuration={cookingDuration}
+              />
+            </motion.div>
+
+            <motion.div
+              variants={itemVariants}
               className="serving__sizes my-[20px] flex flex-col "
             >
               <motion.label className="text-sm  font-semibold mb-[10px]">
@@ -176,8 +199,7 @@ const AddRecipeForm = () => {
               className="serving__sizes my-[20px] flex flex-col "
             >
               <motion.label className="text-sm  font-semibold mb-[10px]">
-              Recipe Category
-
+                Recipe Category
               </motion.label>
 
               <SelectCategory setCategory={setCategory} />

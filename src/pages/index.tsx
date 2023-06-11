@@ -17,6 +17,8 @@ import HomeCard from "@/components/atoms/RecipeCard/HomeCard";
 import { motion } from "framer-motion";
 import { Document } from "../types";
 import Loader from "@/components/atoms/Loader";
+import SearchInput from "@/components/atoms/SearchInput";
+import Link from "next/link";
 
 const Page: NextPageWithLayout = () => {
   const { user, logout, loading } = UseUser();
@@ -84,16 +86,15 @@ const Page: NextPageWithLayout = () => {
     return <Loader />;
   }
 
-
   if (!user) {
     router.push("/auth/signin");
-    return <div>redirecting...</div>;
+    return <Loader />;
   }
   return (
     <>
       <div className="flex flex-col justify-center p-10 ">
         <motion.h1
-          className="text-[#2E3E5C]  text-[40px] lg:text-[100px] font-bold text-center tracking-tighter leading-tight"
+          className="text-[#2E3E5C]  text-[40px] lg:text-[80px] font-bold text-left tracking-tighter leading-tight"
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.5 }}
@@ -107,6 +108,10 @@ const Page: NextPageWithLayout = () => {
             for cooking
           </motion.span>
         </motion.h1>
+
+        <Link className="search my-8" href="/recipe/search">
+          <SearchInput />
+        </Link>
         <div className="my-12">
           {loadingRecipe ? (
             "Loading..."
