@@ -5,7 +5,7 @@ import { Player, Controls } from "@lottiefiles/react-lottie-player";
 
 const Loader = () => {
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center mt-20 h-screen">
       <Player
         autoplay
         loop

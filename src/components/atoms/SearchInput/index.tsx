@@ -4,29 +4,26 @@ import { searchIcon } from "@/assets";
 import { motion } from "framer-motion";
 
 interface Props {
-  search: string;
-  setSearch: (value: string) => void;
+  search?: string;
+  setSearch?: any;
 }
 
 const SearchInput = ({ search, setSearch }: Props) => {
   return (
     <motion.div
+      className="input border-[#9FA5C0]  border-[1.3px] rounded-[10px] bg-[#FFFFFF] flex items-center h-[40px] p-2 w-full mx-auto"
       initial={{ y: -0, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, delay: 0.6 }}
-
-      //   className="flex-1"
     >
-      <div className="input border-[#9FA5C0]  border-[1.3px] rounded-[10px] bg-[#FFFFFF] flex items-center h-[45px] p-2 lg:w-[50%] mx-auto">
-        <Image src={searchIcon} alt="Picture of the author" />
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search recipe"
-          className=" text-[#9FA5C0] rounded-lg p-2 w-full font-normal text-[11px] tracking-tighter outline-none"
-        />
-      </div>
+      <Image src={searchIcon} alt="Picture of the author" />
+      <input
+        type="text"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        placeholder="Search recipe"
+        className=" text-[#9FA5C0] rounded-lg p-2 w-full font-normal text-[11px] tracking-tighter outline-none"
+      />
     </motion.div>
   );
 };

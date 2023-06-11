@@ -7,8 +7,9 @@ import { databases } from "@/appwrite/config";
 import { UseUser } from "@/providers/AuthProviders";
 import { Document } from "@/types";
 import Button from "@/components/atoms/Button";
-import { searchIcon } from "@/assets";
+import { emptySearch, filterIcon } from "@/assets";
 import Image from "next/image";
+import Loader from "@/components/atoms/Loader";
 
 const Search = () => {
   const [loadingRecipe, setLoadingRecipe] = useState<boolean>(false);
@@ -16,17 +17,19 @@ const Search = () => {
   const { user, loading, loadingFeedback } = UseUser();
 
   const [search, setSearch] = useState<string>("");
-  const [userRecipe, setUserRecipe] = useState<any>(null); // Updated the initial state to null
+  const [seachResults, setSearchResult] = useState<any>(null); // Updated the initial state to null
 
-  useEffect(() => {
+  const handleSearch = () => {
+    setLoadingRecipe(true);
+
     setLoadingRecipe(true);
     const promise = databases.listDocuments(
       "647ba64bca1fc8a8992e",
-      "647ba64bca1fc8a8992e"
+      "647ba64bca1fc8a8992e",
       // [Query.equal("userId", [user?.$id])]
       // [Query.limit(1)]
       // [Query.select(["createdAt", "DESC"])]
-      // [Query.equal("title", ["Iron Man"])]
+      [Query.equal("recipe_title", [search])]
     );
 
     promise
@@ -35,7 +38,7 @@ const Search = () => {
           console.log(response.documents);
 
           const documents = response;
-          setUserRecipe(documents);
+          setSearchResult(documents);
           // reload the page
 
           // Success
@@ -47,7 +50,7 @@ const Search = () => {
       .finally(() => {
         setLoadingRecipe(false);
       });
-  }, [user]);
+  };
 
   return (
     <motion.div
@@ -60,20 +63,52 @@ const Search = () => {
         Search recipes
       </h1>
 
-      <SearchInput setSearch={setSearch} search={search} />
+      <form
+        className="filter__container w-full lg:w-[50%] flex mx-auto space-x-7 items-center"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSearch();
+        }}
+      >
+        <SearchInput setSearch={setSearch} search={search} />
 
-      <div className="search__result flex items-center justify-between w-full lg:w-[50%] mx-auto my-[20px]">
-        <h1 className="text-[#2E3E5C] text-base font-semibold">
-          Search result
-        </h1>
+        <Button size="filter" type="submit">
+          <Image src={filterIcon} alt="search icon" width={20} height={20} />
+        </Button>
+      </form>
 
-        <p className="text-[#A9A9A9] text-[11px] font-normal">
-          200 recipes found
-        </p>
-      </div>
+      {
+        // show only there is result
+        seachResults?.documents.length > 0 && (
+          <div className="search__result flex items-center justify-between w-full lg:w-[50%] mx-auto my-[20px]">
+            <h1 className="text-[#2E3E5C] text-base font-semibold">
+              Search result
+            </h1>
 
-      <div className="results  grid grid-cols-2 lg:grid-cols-4 gap-4 items-center justify-center mx-auto">
-        {userRecipe?.documents.map((recipe: Document) => (
+            {/* show only there is result */}
+            {
+              <p className="text-[#A9A9A9] text-[11px] font-normal">
+                {seachResults?.documents.length} recipes found
+              </p>
+            }
+          </div>
+        )
+      }
+
+      {loadingRecipe && <Loader />}
+
+      {seachResults?.documents.length === 0 && (
+        <div className="search__result flex items-center justify-center w-full  mx-auto my-[20px] flex-col space-y-6">
+          <Image src={emptySearch} alt="search icon" width={200} height={200} />
+
+          <p className="text-[#2E3E5C] text-base font-semibold text-center">
+            No recipe found for <span className="text-[#A9A9A9]">{search}</span>
+          </p>
+        </div>
+      )}
+
+      <div className="results  grid grid-cols-1 lg:grid-cols-4 gap-4 items-center justify-center mx-auto my-[70px]">
+        {seachResults?.documents.map((recipe: Document) => (
           <SearchCard
             key={recipe.id}
             id={recipe.id}

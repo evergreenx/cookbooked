@@ -8,3 +8,7 @@ export {default as emptyStateIcon} from './svgs/emptyrecipe.svg'
 export {default as unionIcon} from './svgs/union.svg'
 export { default as googleIcon  } from './svgs/google.svg';
 export { default as searchIcon  } from './svgs/search.svg';
+export { default as filterIcon  } from './svgs/filter.svg';
+export { default as emptySearch  } from './svgs/emptyseach.svg';
+
+

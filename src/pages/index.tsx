@@ -94,7 +94,7 @@ const Page: NextPageWithLayout = () => {
     <>
       <div className="flex flex-col justify-center p-10 ">
         <motion.h1
-          className="text-[#2E3E5C]  text-[40px] lg:text-[80px] font-bold text-left tracking-tighter leading-tight"
+          className="text-[#2E3E5C]  text-[30px] lg:text-[50px] font-bold text-left tracking-tighter leading-tight"
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.5 }}
@@ -109,14 +109,14 @@ const Page: NextPageWithLayout = () => {
           </motion.span>
         </motion.h1>
 
-        <Link className="search my-8" href="/recipe/search">
+        <Link className="search my-8 w-[50%] mx-auto" href="/recipe/search">
           <SearchInput />
         </Link>
         <div className="my-12">
           {loadingRecipe ? (
             "Loading..."
           ) : (
-            <div className="card grid grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="card grid grid-cols-1 lg:grid-cols-3 gap-4 items-center justify-center mx-auto">
               {userRecipe &&
                 userRecipe?.documents.map((recipe: Document) => (
                   <RecipeCard
@@ -154,7 +154,7 @@ const Page: NextPageWithLayout = () => {
                   </div>
                 </div>
 
-                <div className="card grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="card grid grid-cols-1 lg:grid-cols-4 gap-4">
                   {recentRecipe &&
                     recentRecipe?.documents?.map((recipe: Document) => (
                       <HomeCard

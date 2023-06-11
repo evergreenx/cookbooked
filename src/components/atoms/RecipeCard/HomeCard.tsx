@@ -24,11 +24,13 @@ const HomeCard = ({
 
   return (
     <motion.div
-      className="rounded-2xl flex flex-col"
+      className="rounded-2xl flex flex-col w-full"
       initial="hidden"
       animate="visible"
       variants={cardVariants}
       //   whileHover={{ scale: 1.1 }}
+
+      
     >
       <motion.div className="image  " variants={imageVariants}>
         <Image
@@ -39,7 +41,7 @@ const HomeCard = ({
           blurDataURL={cover__image}
           width={500}
           height={500}
-          className="rounded-2xl lg:h-[160px] w-[214px] object-cover"
+          className="rounded-2xl h-[160px] w-[214px] object-cover"
         />
       </motion.div>
       <motion.div
