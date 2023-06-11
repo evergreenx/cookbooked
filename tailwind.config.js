@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       colors: {
         brandColor: '#F5484A',
+        overlayBg :  'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #ddd 100%)'
       },
 
       

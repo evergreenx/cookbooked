@@ -48,7 +48,7 @@ const RecipeCard = ({
 
   return (
     <motion.div
-      className="relative lg:w-80 rounded-2xl overflow-hidden shadow-lg"
+      className="relative  w-[250px] h-[250px]  rounded-2xl overflow-hidden shadow-lg"
       initial="hidden"
       animate="visible"
       variants={cardVariants}
@@ -60,7 +60,7 @@ const RecipeCard = ({
         alt="Picture of the author"
         width={400}
         height={400}
-        className="rounded-2xl"
+        className="rounded-2xl h-full w-full object-cover"
       />
 
       <div className="absolute  left-0 bottom-0 w-full h-full flex items-center justify-center">
