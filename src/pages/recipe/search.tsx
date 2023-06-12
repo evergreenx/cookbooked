@@ -113,6 +113,7 @@ const Search = () => {
           <SearchCard
             key={recipe.id}
             id={recipe.id}
+            cooking__duration={recipe.cooking__duration}
             author__notes={recipe.author__notes}
             cooking__instruction={recipe.cooking__instruction}
             cover__image={recipe.cover__image}

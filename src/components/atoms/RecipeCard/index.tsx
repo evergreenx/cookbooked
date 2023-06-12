@@ -2,11 +2,12 @@ import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
 import { Document } from "@/types";
-import { unionIcon } from "@/assets";
+import { timeIcon, unionIcon } from "@/assets";
 import { FavCardOptions, UserCardOptions } from "../DropMenu";
 import { databases } from "@/appwrite/config";
 import { toast } from "react-hot-toast";
 import router from "next/router";
+import { UseUser } from "@/providers/AuthProviders";
 
 const RecipeCard = ({
   name,
@@ -17,35 +18,52 @@ const RecipeCard = ({
   serving_size,
   cooking__instruction,
   ingredients,
+  cooking__duration,
 }: Document) => {
   const cardVariants = {
     hidden: { opacity: 0, scale: 0.5 },
     visible: { opacity: 1, scale: 1, duration: 0.8, delay: 0.5 },
   };
 
-  const handleAddToFav = () => {
-    const promise = databases.updateDocument(
-      "647ba64bca1fc8a8992e",
-      "647ba64bca1fc8a8992e",
-      `${id}`,
-      {
-        isFavorite: true,
+  const { user } = UseUser();
+  const handleAddToFav = async () => {
+    try {
+      const recipe = await databases.getDocument(
+        "647ba64bca1fc8a8992e",
+        "647ba64bca1fc8a8992e",
+        `${id}`
+      );
+
+      const favorites = recipe.favorites || [];
+      const isFavorite = favorites.includes(user.$id);
+
+      if (isFavorite) {
+        const updatedFavorites = favorites.filter(
+          (id: string) => id !== user.$id
+        );
+        recipe.favorites = updatedFavorites;
+        toast("Recipe removed from favorites");
+      } else {
+        // Append the user's ID to the favorites array
+        recipe.favorites = [...favorites, user.$id];
+        toast.success("Recipe added to favorites 😋");
       }
-    );
 
-    promise.then(
-      function (response) {
-        console.log(response);
+      const updateData = {
+        favorites: recipe.favorites,
+      };
 
-        toast.success("Recipe bookmarked successfully");
+      const response = await databases.updateDocument(
+        "647ba64bca1fc8a8992e",
+        "647ba64bca1fc8a8992e",
+        `${id}`,
+        updateData
+      );
 
-        // Success
-      },
-      function (error) {
-        console.log(error); // Failure
-        toast.error(error.message);
-      }
-    );
+      console.log("Recipe document updated successfully:", response);
+    } catch (error) {
+      console.error("Error updating recipe document:", error);
+    }
   };
 
   return (
@@ -54,7 +72,6 @@ const RecipeCard = ({
       initial="hidden"
       animate="visible"
       variants={cardVariants}
-      // whileHover={{ scale: 1.1 }}
     >
       <FavCardOptions handleAddToFav={handleAddToFav} />
       <Image
@@ -74,16 +91,25 @@ const RecipeCard = ({
             {recipe_title}
           </p>
 
-          <span>
-            <p className="text-white font-normal text-sm">
-              {ingredients.length + " "}
-              Ingredient
-              {
-                // if ingredients.length > 1, add "s" to the word "Ingredients"
-                ingredients.length > 1 ? "s" : ""
-              }
-            </p>
-          </span>
+          <div className="duration flex items-center justify-between">
+            <span>
+              <p className="text-white font-normal text-sm">
+                {ingredients.length + " "}
+                Ingredient
+                {
+                  // if ingredients.length > 1, add "s" to the word "Ingredients"
+                  ingredients.length > 1 ? "s" : ""
+                }
+              </p>
+            </span>
+            <div className="flex items-center space-x-[5px]">
+              <Image src={timeIcon} alt="time" />
+
+              <p className="text-[#D9D9D9] font-bold text-sm">
+                {cooking__duration}mins
+              </p>
+            </div>
+          </div>
         </motion.div>
       </div>
     </motion.div>

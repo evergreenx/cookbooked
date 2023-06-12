@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
 import { Document } from "@/types";
-import { unionIcon } from "@/assets";
+import { timeIcon, unionIcon } from "@/assets";
 import { UserCardOptions } from "../DropMenu";
 import { databases } from "@/appwrite/config";
 import { toast } from "react-hot-toast";
@@ -11,6 +11,7 @@ import router from "next/router";
 const SearchCard = ({
   name,
   id,
+  cooking__duration,
   recipe_title,
   cover__image,
   author__notes,
@@ -45,16 +46,36 @@ const SearchCard = ({
           className="text flex justify-end flex-col h-full w-full bg-opacity-50 p-4"
  
         >
-          <p className="text-white font-bold text-sm tracking-tighter">
+          <div className="text-white flex justify-between font-bold text-sm tracking-tighter">
             {recipe_title}
-          </p>
+
+
+            
+          <div className="duration flex items-center justify-between">
+        
+        <div className="flex items-center space-x-[5px]">
+        <Image src={timeIcon} alt="time" />
+
+<p className="text-[#D9D9D9] font-bold text-sm">
+{cooking__duration} min
+</p>
+
+        </div>
+      
+        </div>
+          </div>
 
           <span className="mt-[3px]">
             <p className="text-[#A9A9A9] font-normal text-xs">
               by {name}
             </p>
           </span>
+
+
         </motion.div>
+
+
+        
       </div>
     </motion.div>
   );

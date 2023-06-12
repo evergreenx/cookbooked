@@ -5,6 +5,7 @@ export interface Document {
     id?: string;
     $id?: string;
     permissions?: string[];
+    cooking__duration?: number;
     updatedAt?: string;
     author__notes: string;
     cooking__instruction: string[];

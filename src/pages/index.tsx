@@ -133,6 +133,7 @@ const Page: NextPageWithLayout = () => {
                     name={recipe.name}
                     recipe_title={recipe.recipe_title}
                     serving_size={recipe.serving_size}
+                    cooking__duration={recipe.cooking__duration}
                   />
                 ))}
             </div>

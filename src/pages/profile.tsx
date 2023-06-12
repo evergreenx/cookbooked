@@ -36,6 +36,7 @@ interface Document {
 const Profile = () => {
   const { user, loading, loadingFeedback } = UseUser();
   const [userRecipe, setUserRecipe] = useState<any>(null); // Updated the initial state to null
+  const [savedRecipe , setSavedRecipe] = useState<any>(null);
   const router = useRouter();
   const [loadingRecipe, setLoadingRecipe] = useState<boolean>(false);
 
@@ -69,6 +70,55 @@ const Profile = () => {
         setLoadingRecipe(false);
       });
   }, [user]);
+
+
+
+
+
+
+
+
+  useEffect(() => {
+    async function asyncgetSavedRecipes() {
+      setLoadingRecipe(true);
+      try {
+
+        // Perform the query
+        const savedRecipes = await databases.listDocuments(
+          "647ba64bca1fc8a8992e",
+          "647ba64bca1fc8a8992e",
+          [Query.search("favorites", "6483c248cb24e067dbc0")]
+        );
+
+        // Return the retrieved documents (saved recipes)
+
+        setSavedRecipe(savedRecipes);
+        return savedRecipes;
+      } catch (error) {
+        console.error("Error getting saved recipes:", error);
+        return []; // Return an empty array or handle the error as per your application's logic
+      } finally {
+        setLoadingRecipe(false);
+      }
+    }
+
+    asyncgetSavedRecipes();
+  }, []);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   if (loading) {
     return <Loader />;
@@ -131,7 +181,7 @@ const Profile = () => {
 
 
 {
-  userRecipe && 
+  userRecipe && savedRecipe &&
   <motion.div
     initial={{ opacity: 0, x: -10 }}
     animate={{ opacity: 1, x: 0 }}
@@ -161,7 +211,9 @@ const Profile = () => {
         Saved Recipe
       </h3>
       <h2 className="text-xl text-[#2E3E5C] font-semibold text-center">
-        3
+        {
+          savedRecipe && savedRecipe?.total
+        }
       </h2>
     </motion.div>
   </motion.div>

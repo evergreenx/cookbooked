@@ -67,8 +67,7 @@ export const UserDropMenu = () => {
 };
 
 interface UserCardOptionsProps {
-  handleDeleteRecipe?: () => void;
-  handleAddToFav?: () => void;
+  handleDeleteRecipe: () => void;
 }
 
 export const UserCardOptions = ({
@@ -122,7 +121,11 @@ export const UserCardOptions = ({
   );
 };
 
-export const FavCardOptions = ({ handleAddToFav }: UserCardOptionsProps) => {
+interface FavCardOptionsProps {
+  handleAddToFav?: () => void;
+}
+
+export const FavCardOptions = ({ handleAddToFav }: FavCardOptionsProps) => {
   const { logout } = UseUser();
 
   return (
