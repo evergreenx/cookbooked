@@ -103,7 +103,7 @@ const Profile = () => {
     }
 
     asyncgetSavedRecipes();
-  }, []);
+  }, );
 
 
 
@@ -183,7 +183,7 @@ const Profile = () => {
 
 
 {
-  userRecipe && savedRecipe &&
+  userRecipe  &&
   <motion.div
     initial={{ opacity: 0, x: -10 }}
     animate={{ opacity: 1, x: 0 }}
@@ -199,7 +199,7 @@ const Profile = () => {
         Recipe
       </h3>
       <h2 className="text-xl text-[#2E3E5C] font-semibold text-center">
-        {userRecipe && userRecipe?.total}
+        { userRecipe?.total}
       </h2>
     </motion.div>
 
@@ -214,7 +214,7 @@ const Profile = () => {
       </h3>
       <h2 className="text-xl text-[#2E3E5C] font-semibold text-center">
         {
-          savedRecipe && savedRecipe?.total
+        savedRecipe &&   savedRecipe?.total
         }
       
       </h2>
