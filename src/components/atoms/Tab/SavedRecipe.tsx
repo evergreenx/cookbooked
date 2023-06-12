@@ -25,7 +25,7 @@ const SavedRecipe = () => {
         const savedRecipes = await databases.listDocuments(
           "647ba64bca1fc8a8992e",
           "647ba64bca1fc8a8992e",
-          [Query.search("favorites", "6483c248cb24e067dbc0")]
+          [Query.search("favorites", user.$id)],
         );
 
         // Return the retrieved documents (saved recipes)

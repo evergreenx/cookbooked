@@ -36,7 +36,7 @@ interface Document {
 const Profile = () => {
   const { user, loading, loadingFeedback } = UseUser();
   const [userRecipe, setUserRecipe] = useState<any>(null); // Updated the initial state to null
-  const [savedRecipe , setSavedRecipe] = useState<any>(null);
+  const [savedRecipe , setSavedRecipe] = useState<any>(0);
   const router = useRouter();
   const [loadingRecipe, setLoadingRecipe] = useState<boolean>(false);
 
@@ -87,7 +87,7 @@ const Profile = () => {
         const savedRecipes = await databases.listDocuments(
           "647ba64bca1fc8a8992e",
           "647ba64bca1fc8a8992e",
-          [Query.search("favorites", "6483c248cb24e067dbc0")]
+          [Query.search("favorites", user.$id)]
         );
 
         // Return the retrieved documents (saved recipes)
@@ -128,6 +128,8 @@ const Profile = () => {
   if (!user) {
     router.push("/auth/signin");
   }
+
+  console.log(userRecipe?.total  , 'userRecipe.total');
 
   return (
     <motion.div
@@ -214,6 +216,7 @@ const Profile = () => {
         {
           savedRecipe && savedRecipe?.total
         }
+      
       </h2>
     </motion.div>
   </motion.div>
