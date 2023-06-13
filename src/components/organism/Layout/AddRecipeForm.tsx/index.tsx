@@ -69,7 +69,7 @@ const AddRecipeForm = ({ setShowSuccessDialog }: Props) => {
             // cover__image: values.coverImage,
             userId: user?.$id,
             name: user?.name,
-            cover__image: `https://cloud.appwrite.io/v1/storage/buckets/${"648496feb5ff0dcec87d"}/files/${imageId}/view?project=647a8967b6ee81b46589`,
+            cover__image: `https://cloud.appwrite.io/v1/storage/buckets/${"64883cebb2823f08e120"}/files/${imageId}/view?project=64883c4b36de2cdc6673`,
             serving_size: ServingSize,
             author__notes: values.authorNote,
             cooking__instruction: getCookingSteps,

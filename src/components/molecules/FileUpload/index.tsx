@@ -41,7 +41,7 @@ const FileUpload = ({
 
   const uploadImage = (file: File) => {
     const promise = storage.createFile(
-      "648496feb5ff0dcec87d",
+     process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID as string,
       ID.unique(),
       file,
       [
