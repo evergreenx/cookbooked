@@ -97,7 +97,7 @@ const Profile = () => {
     }
 
     asyncgetSavedRecipes();
-  });
+  },[user]);
 
   if (loading) {
     return <Loader />;
