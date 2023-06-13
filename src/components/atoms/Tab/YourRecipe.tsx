@@ -22,10 +22,11 @@ const YourRecipe = ({}) => {
   useEffect(() => {
     setLoadingRecipe(true);
     const promise = databases.listDocuments(
-      "647ba64bca1fc8a8992e",
-      "647ba64bca1fc8a8992e",
+      process.env.NEXT_PUBLIC_APPWRITE_DOC_ID || "",
+  process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID || "",
+
       [Query.equal("userId", [user?.$id])]
-      // [Query.limit(1)]
+      // [Query.limit(1)
       // [Query.select(["createdAt", "DESC"])]
       // [Query.equal("title", ["Iron Man"])]
     );

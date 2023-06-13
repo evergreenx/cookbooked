@@ -25,8 +25,8 @@ const YourRecipeCard = ({
 
   const handleDeleteRecipe = () => {
     const promise = databases.deleteDocument(
-      "647ba64bca1fc8a8992e",
-      "647ba64bca1fc8a8992e",
+      process.env.NEXT_PUBLIC_APPWRITE_DOC_ID || "",
+      process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID || "",
       `${id}`
     );
 
@@ -51,7 +51,6 @@ const YourRecipeCard = ({
       className="relative   lg:w-[250px] lg:h-[250px] h-[200px]  w-full rounded-2xl overflow-hidden shadow-lg"
       initial="hidden"
       animate="visible"
-
     >
       <UserCardOptions handleDeleteRecipe={handleDeleteRecipe} />
       <Image

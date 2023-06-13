@@ -12,6 +12,8 @@ export { default as filterIcon  } from './svgs/filter.svg';
 export { default as emptySearch  } from './svgs/emptyseach.svg';
 export { default as favIcon  } from './svgs/fav.svg';
 export { default as timeIcon  } from './svgs/time.svg';
+export { default as logo  } from './svgs/logo.svg';
+
 
 
 

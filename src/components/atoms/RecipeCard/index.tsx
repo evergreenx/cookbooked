@@ -29,8 +29,9 @@ const RecipeCard = ({
   const handleAddToFav = async () => {
     try {
       const recipe = await databases.getDocument(
-        "647ba64bca1fc8a8992e",
-        "647ba64bca1fc8a8992e",
+        process.env.NEXT_PUBLIC_APPWRITE_DOC_ID || "",
+        process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID || "",
+
         `${id}`
       );
 
@@ -54,8 +55,9 @@ const RecipeCard = ({
       };
 
       const response = await databases.updateDocument(
-        "647ba64bca1fc8a8992e",
-        "647ba64bca1fc8a8992e",
+        process.env.NEXT_PUBLIC_APPWRITE_DOC_ID || "",
+        process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID || "",
+
         `${id}`,
         updateData
       );

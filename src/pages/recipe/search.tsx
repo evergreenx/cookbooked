@@ -24,9 +24,9 @@ const Search = () => {
 
     setLoadingRecipe(true);
     const promise = databases.listDocuments(
-      "647ba64bca1fc8a8992e",
-      "647ba64bca1fc8a8992e",
-      // [Query.equal("userId", [user?.$id])]
+       process.env.NEXT_PUBLIC_APPWRITE_DOC_ID || "",
+  process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID || "",
+   
       // [Query.limit(1)]
       // [Query.select(["createdAt", "DESC"])]
       [Query.search("recipe_title", search)]

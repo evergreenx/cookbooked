@@ -20,12 +20,12 @@ const SavedRecipe = () => {
     async function asyncgetSavedRecipes() {
       setLoadingRecipe(true);
       try {
-
         // Perform the query
         const savedRecipes = await databases.listDocuments(
-          "647ba64bca1fc8a8992e",
-          "647ba64bca1fc8a8992e",
-          [Query.search("favorites", user.$id)],
+          process.env.NEXT_PUBLIC_APPWRITE_DOC_ID || "",
+          process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID || "",
+
+          [Query.search("favorites", user.$id)]
         );
 
         // Return the retrieved documents (saved recipes)
@@ -74,10 +74,8 @@ const SavedRecipe = () => {
           <div className="flex flex-col items-center justify-center my-10">
             <Image src={emptyStateIcon} alt="empty state " className="my-5" />
             <h2 className="text-[#c9c8c8] font-semibold text-[20px]  mb-5">
-            your saved recipes will appear here
+              your saved recipes will appear here
             </h2>
-
-            
           </div>
         )}
       </div>

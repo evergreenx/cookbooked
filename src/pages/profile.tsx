@@ -36,15 +36,16 @@ interface Document {
 const Profile = () => {
   const { user, loading, loadingFeedback } = UseUser();
   const [userRecipe, setUserRecipe] = useState<any>(null); // Updated the initial state to null
-  const [savedRecipe , setSavedRecipe] = useState<any>(0);
+  const [savedRecipe, setSavedRecipe] = useState<any>(0);
   const router = useRouter();
   const [loadingRecipe, setLoadingRecipe] = useState<boolean>(false);
 
   useEffect(() => {
     setLoadingRecipe(true);
     const promise = databases.listDocuments(
-      "647ba64bca1fc8a8992e",
-      "647ba64bca1fc8a8992e",
+      process.env.NEXT_PUBLIC_APPWRITE_DOC_ID || "",
+      process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID || "",
+
       [Query.equal("userId", [user?.$id])]
       // [Query.limit(1)]
       // [Query.select(["createdAt", "DESC"])]
@@ -54,7 +55,7 @@ const Profile = () => {
     promise
       .then(
         function (response) {
-          (response.documents);
+          response.documents;
 
           const documents = response;
           setUserRecipe(documents);
@@ -63,7 +64,7 @@ const Profile = () => {
           // Success
         },
         function (error) {
-          (error); // Failure
+          error; // Failure
         }
       )
       .finally(() => {
@@ -71,22 +72,15 @@ const Profile = () => {
       });
   }, [user]);
 
-
-
-
-
-
-
-
   useEffect(() => {
     async function asyncgetSavedRecipes() {
       setLoadingRecipe(true);
       try {
-
         // Perform the query
         const savedRecipes = await databases.listDocuments(
-          "647ba64bca1fc8a8992e",
-          "647ba64bca1fc8a8992e",
+          process.env.NEXT_PUBLIC_APPWRITE_DOC_ID || "",
+          process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID || "",
+
           [Query.search("favorites", user.$id)]
         );
 
@@ -103,33 +97,17 @@ const Profile = () => {
     }
 
     asyncgetSavedRecipes();
-  }, );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  });
 
   if (loading) {
     return <Loader />;
   }
 
-
   if (!user) {
     router.push("/auth/signin");
   }
 
-  console.log(userRecipe?.total  , 'userRecipe.total');
+  console.log(userRecipe?.total, "userRecipe.total");
 
   return (
     <motion.div
@@ -181,56 +159,44 @@ const Profile = () => {
         </p>
       </motion.div>
 
+      {userRecipe && (
+        <motion.div
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="userreceipeinfo px-8 my-6 flex space-x-[47px]"
+        >
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="info"
+          >
+            <h3 className="text-[#9FA5C0] font-normal text-xs capitalize">
+              Recipe
+            </h3>
+            <h2 className="text-xl text-[#2E3E5C] font-semibold text-center">
+              {userRecipe?.total}
+            </h2>
+          </motion.div>
 
-{
-  userRecipe  &&
-  <motion.div
-    initial={{ opacity: 0, x: -10 }}
-    animate={{ opacity: 1, x: 0 }}
-    className="userreceipeinfo px-8 my-6 flex space-x-[47px]"
-  >
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 0.2 }}
-      className="info"
-    >
-      <h3 className="text-[#9FA5C0] font-normal text-xs capitalize">
-        Recipe
-      </h3>
-      <h2 className="text-xl text-[#2E3E5C] font-semibold text-center">
-        { userRecipe?.total}
-      </h2>
-    </motion.div>
-
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 0.4 }}
-      className="info"
-    >
-      <h3 className="text-[#9FA5C0] font-normal text-xs capitalize">
-        Saved Recipe
-      </h3>
-      <h2 className="text-xl text-[#2E3E5C] font-semibold text-center">
-        {
-        savedRecipe &&   savedRecipe?.total
-        }
-      
-      </h2>
-    </motion.div>
-  </motion.div>
-
-}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="info"
+          >
+            <h3 className="text-[#9FA5C0] font-normal text-xs capitalize">
+              Saved Recipe
+            </h3>
+            <h2 className="text-xl text-[#2E3E5C] font-semibold text-center">
+              {savedRecipe && savedRecipe?.total}
+            </h2>
+          </motion.div>
+        </motion.div>
+      )}
       {/* empty state for personal recipe */}
 
- 
-
-      <UserTabs userRecipe={userRecipe}
-
-loadingRecipe={loadingRecipe}
-      
-      />
+      <UserTabs userRecipe={userRecipe} loadingRecipe={loadingRecipe} />
 
       <Toaster />
     </motion.div>
@@ -240,6 +206,5 @@ loadingRecipe={loadingRecipe}
 export default Profile;
 
 Profile.getLayout = function getLayout(page: ReactElement) {
-
   return <AppLayout>{page}</AppLayout>;
 };

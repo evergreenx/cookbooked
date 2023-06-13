@@ -176,7 +176,7 @@ const Signup = () => {
             !formik.isValid
             }
           >
-           {!loadingFeedback ? (
+           {loadingFeedback ? (
              <div role="status"
              className="flex items-center justify-center"
              >

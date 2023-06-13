@@ -32,8 +32,9 @@ const Page: NextPageWithLayout = () => {
 
   useEffect(() => {
     const promise = databases.listDocuments(
-      "647ba64bca1fc8a8992e",
-      "647ba64bca1fc8a8992e"
+    process.env.NEXT_PUBLIC_APPWRITE_DOC_ID || "",
+  process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID || "",
+
     );
 
     promise.then(
@@ -52,8 +53,9 @@ const Page: NextPageWithLayout = () => {
     const fetchRecentRecipes = async () => {
       setLoadingRecipe(true);
       const promise = databases.listDocuments(
-        "647ba64bca1fc8a8992e",
-        "647ba64bca1fc8a8992e",
+        process.env.NEXT_PUBLIC_APPWRITE_DOC_ID || "",
+  process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID || "",
+ 
         [Query.orderDesc("$createdAt"), Query.limit(9)]
       );
 

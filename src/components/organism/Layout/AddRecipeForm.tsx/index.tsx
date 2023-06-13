@@ -79,8 +79,8 @@ const AddRecipeForm = ({ setShowSuccessDialog }: Props) => {
           };
 
           const promise = databases.createDocument(
-            "647ba64bca1fc8a8992e",
-            "647ba64bca1fc8a8992e",
+            process.env.NEXT_PUBLIC_APPWRITE_DOC_ID || "",
+            process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID || "",
 
             ID.unique(),
             data,
