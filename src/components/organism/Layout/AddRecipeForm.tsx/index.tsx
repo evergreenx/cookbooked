@@ -15,6 +15,7 @@ import { toast } from "react-hot-toast";
 import { useRouter } from "next/router";
 import SelectCategory from "@/components/atoms/Select/SelectCategory";
 import CookingDurationSlider from "@/components";
+import { v4 as uuidv4 } from 'uuid';
 
 interface Props {
   setShowSuccessDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -82,7 +83,7 @@ const AddRecipeForm = ({ setShowSuccessDialog }: Props) => {
             process.env.NEXT_PUBLIC_APPWRITE_DOC_ID || "",
             process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID || "",
 
-            ID.unique(),
+            uuidv4(),
             data,
             [
               // Permission.read(Role.user(user["$id"])),
