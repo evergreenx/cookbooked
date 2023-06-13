@@ -70,7 +70,7 @@ const AddRecipeForm = ({ setShowSuccessDialog }: Props) => {
             // cover__image: values.coverImage,
             userId: user?.$id,
             name: user?.name,
-            cover__image: `https://cloud.appwrite.io/v1/storage/buckets/${"64883cebb2823f08e120"}/files/${imageId}/view?project=64883c4b36de2cdc6673`,
+            cover__image: `https://cloud.appwrite.io/v1/storage/buckets/${"648496feb5ff0dcec87d"}/files/${imageId}/view?project=647a8967b6ee81b46589`,
             serving_size: ServingSize,
             author__notes: values.authorNote,
             cooking__instruction: getCookingSteps,
@@ -83,7 +83,7 @@ const AddRecipeForm = ({ setShowSuccessDialog }: Props) => {
             process.env.NEXT_PUBLIC_APPWRITE_DOC_ID || "",
             process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID || "",
 
-            uuidv4(),
+            ID.unique(),
             data,
             [
               // Permission.read(Role.user(user["$id"])),

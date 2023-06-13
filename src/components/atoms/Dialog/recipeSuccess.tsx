@@ -54,11 +54,15 @@ const RecipeSuccess = ({ setShowSuccessDialog, showSuccessDialog }: Props) => {
               Your recipe has been uploaded, you can see it on your profile
             </p>
 
-            <Button size="medium">
+<div className="flex justify-center items-center">
+
+<Button size="medium">
               <Link href="/" className="text-white text-[15px] font-bold ">
                 Back to Home
               </Link>
             </Button>
+</div>
+    
           </div>
         </Dialog.Content>
       </Dialog.Portal>
