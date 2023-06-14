@@ -218,7 +218,7 @@ const Page: NextPageWithLayout = () => {
 
   function logGroup(type: string, data: any) {
     console.groupCollapsed(type);
-    console.log(data);
+
     console.groupEnd();
   }
 

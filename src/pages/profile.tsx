@@ -107,7 +107,6 @@ const Profile = () => {
     router.push("/auth/signin");
   }
 
-  console.log(userRecipe?.total, "userRecipe.total");
 
   return (
     <motion.div

@@ -9,6 +9,7 @@ import { toast } from "react-hot-toast";
 import router from "next/router";
 import { UseUser } from "@/providers/AuthProviders";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const RecipeCard = ({
   name,
@@ -28,7 +29,10 @@ const RecipeCard = ({
   };
 
   const { user } = UseUser();
-  const handleAddToFav = async () => {
+  const router = useRouter();
+  const handleAddToFav = async (event: any) => {
+    event.stopPropagation();
+
     try {
       const recipe = await databases.getDocument(
         process.env.NEXT_PUBLIC_APPWRITE_DOC_ID || "",
@@ -64,61 +68,66 @@ const RecipeCard = ({
         updateData
       );
 
-      console.log("Recipe document updated successfully:", response);
     } catch (error) {
       console.error("Error updating recipe document:", error);
     }
   };
 
   return (
-    <Link
-      href={`/recipe/${id}`}
-      className="lg:w-[250px] lg:h-[250px] h-[200px]"
-    >
-      <motion.div
-        className="relative    lg:w-[250px] lg:h-[250px] h-[200px]  w-full rounded-2xl overflow-hidden shadow-lg"
-        initial="hidden"
-        animate="visible"
-        variants={cardVariants}
+    <>
+      <div
+        onClick={() => router.push(`/recipe/${id}`)}
+        className="lg:w-[250px] lg:h-[250px] h-[200px] cursor-pointer"
       >
-        <FavCardOptions
-        favorites={favorites}
-         handleAddToFav={handleAddToFav} />
-        <Image
-          src={cover__image}
-          alt="Picture of the author"
-          width={400}
-          height={400}
-          className="rounded-2xl h-full w-full object-cover"
-        />
+        <motion.div
+          className="relative    lg:w-[250px] lg:h-[250px] h-[200px]  w-full rounded-2xl overflow-hidden shadow-lg"
+          initial="hidden"
+          animate="visible"
+          variants={cardVariants}
+        >
+          <Image
+            src={cover__image}
+            alt="Picture of the author"
+            width={400}
+            height={400}
+            className="rounded-2xl h-full w-full object-cover"
+          />
 
-        <div className="absolute details left-0 bottom-0 w-full h-full flex items-center justify-center">
-          <motion.div
-            className="bg-[#30303067] flex justify-end flex-col h-full w-full rounded-2xl bg-opacity-50 p-4"
-            //   whileHover={{ scale: 1.1 }}
-          >
-            <p className="text-white font-bold text-lg tracking-tighter">
-              {recipe_title.length < 20
-                ? recipe_title
-                : recipe_title.substring(0, 20) + "..."}
-            </p>
+          <div className="absolute details left-0 bottom-0 w-full h-full flex items-center justify-center">
+            <motion.div
+              className="bg-[#30303067] flex justify-end flex-col h-full w-full rounded-2xl bg-opacity-50 p-4"
+              //   whileHover={{ scale: 1.1 }}
+            >
+              <p className="text-white font-bold text-lg tracking-tighter">
+                {recipe_title.length < 20
+                  ? recipe_title
+                  : recipe_title.substring(0, 20) + "..."}
+              </p>
 
-            <div className="duration flex items-center justify-between">
-              <span>
-                <p className="text-white font-normal text-sm">
-                  {ingredients.length + " "}
-                  Ingredient
-                  {
-                    // if ingredients.length > 1, add "s" to the word "Ingredients"
-                    ingredients.length > 1 ? "s" : ""
-                  }
-                </p>
-              </span>
+              <div className="duration flex items-center justify-between">
+                <span>
+                  <p className="text-white font-normal text-sm">
+                    {ingredients.length + " "}
+                    Ingredient
+                    {
+                      // if ingredients.length > 1, add "s" to the word "Ingredients"
+                      ingredients.length > 1 ? "s" : ""
+                    }
+                  </p>
+                </span>
+              </div>
+            </motion.div>
+
+            <div className="bg-red-200 h-20">
+              <FavCardOptions
+                favorites={favorites}
+                handleAddToFav={handleAddToFav}
+              />
             </div>
-          </motion.div>
-        </div>
-      </motion.div>
-    </Link>
+          </div>
+        </motion.div>
+      </div>
+    </>
   );
 };
 

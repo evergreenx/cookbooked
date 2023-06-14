@@ -14,10 +14,10 @@ const Activesessions = () => {
       .then(
         function (response) {
           setActivesessions(response);
-          console.log(response); // Success
+          // Success
         },
         function (error) {
-          console.log(error); // Failure
+          // Failure
         }
       )
       .finally(() => {
@@ -28,8 +28,6 @@ const Activesessions = () => {
   if (loadingActiveSessions) {
     return <Loader />;
   }
-
-  console.log(activesessions);
 
   return <div>A</div>;
 };

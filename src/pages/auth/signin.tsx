@@ -155,12 +155,12 @@ const Signup = () => {
           variants={inputVariants}
           className="forgetpassword mt-[20px] text-right mb-[50px]"
         >
-          <a
+          {/* <a
             href="/auth/forgetpassword"
             className="text-[#2E3E5C] font-medium text-[15px]"
           >
             Forget password?
-          </a>
+          </a> */}
         </motion.div>
 
         <motion.div variants={inputVariants} className="button mt-[20px]">

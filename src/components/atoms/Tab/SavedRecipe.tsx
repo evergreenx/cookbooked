@@ -9,6 +9,7 @@ import Image from "next/image";
 import Button from "../Button";
 import Link from "next/link.js";
 import Loader from "../Loader";
+import RecipeCard from "../RecipeCard/";
 
 const SavedRecipe = () => {
   const { user } = UseUser();
@@ -55,9 +56,10 @@ const SavedRecipe = () => {
         ) : (
           <div className="card grid grid-cols-2 lg:grid-cols-3 gap-4">
             {userRecipe?.documents.map((recipe: Document) => (
-              <YourRecipeCard
+              <RecipeCard
                 key={recipe.$id}
                 id={recipe.$id}
+                favorites={recipe.favorites}
                 author__notes={recipe.author__notes}
                 cooking__instruction={recipe.cooking__instruction}
                 cover__image={recipe.cover__image}

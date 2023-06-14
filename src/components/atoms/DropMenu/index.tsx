@@ -99,7 +99,7 @@ export const UserCardOptions = ({
           >
             delete
           </DropdownMenu.Item>
-{/* 
+          {/* 
           <DropdownMenu.Item
             className="group 
           cursor-pointer
@@ -118,7 +118,7 @@ export const UserCardOptions = ({
 };
 
 interface FavCardOptionsProps {
-  handleAddToFav?: () => void;
+  handleAddToFav?: any;
   favorites?: [];
 }
 
@@ -129,28 +129,27 @@ export const FavCardOptions = ({
   const { user, logout } = UseUser();
 
   // check if user id is in favourites
-console.log(user.$id, "user");
 
-const favoritesArray: string[] | undefined = favorites as string[] | undefined;
-const showfavIcon = favoritesArray?.includes(user.$id as string)
+  const favoritesArray: string[] | undefined = favorites as
+    | string[]
+    | undefined;
+  const showfavIcon = favoritesArray?.includes(user.$id as string);
 
-  console.log(favIcon, "favourites");
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger onClick={handleAddToFav} asChild>
+
+      <button onClick={handleAddToFav} >
         <div
           className="w-[32px] h-[32px]  save
       cursor-pointer
-      top-4 right-4 absolute items-center flex justify-center z-[100] bg-[#fff] rounded-full"
+      top-4 right-4 absolute items-center flex justify-center z-[100] bg-[#fff] rounded-full "
         >
-
-          {
-            showfavIcon ?  <Image src={favIcon} alt="fav" /> : <Image src={unfavIcon} alt="unfav" /> 
-
-          }
-    
+          {showfavIcon ? (
+            <Image src={favIcon} alt="fav" />
+          ) : (
+            <Image src={unfavIcon} alt="unfav" />
+          )}
         </div>
-      </DropdownMenu.Trigger>
-    </DropdownMenu.Root>
+      </button>
+
   );
 };
