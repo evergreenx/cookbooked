@@ -1,6 +1,4 @@
 import React from "react";
-import Lottie from "lottie-react";
-import * as LottiePlayer from "@lottiefiles/lottie-player";
 import { Player, Controls } from "@lottiefiles/react-lottie-player";
 
 const Loader = () => {
