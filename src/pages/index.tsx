@@ -32,9 +32,8 @@ const Page: NextPageWithLayout = () => {
 
   useEffect(() => {
     const promise = databases.listDocuments(
-    process.env.NEXT_PUBLIC_APPWRITE_DOC_ID || "",
-  process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID || "",
-
+      process.env.NEXT_PUBLIC_APPWRITE_DOC_ID || "",
+      process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID || ""
     );
 
     promise.then(
@@ -54,8 +53,8 @@ const Page: NextPageWithLayout = () => {
       setLoadingRecipe(true);
       const promise = databases.listDocuments(
         process.env.NEXT_PUBLIC_APPWRITE_DOC_ID || "",
-  process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID || "",
- 
+        process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID || "",
+
         [Query.orderDesc("$createdAt"), Query.limit(9)]
       );
 
@@ -92,6 +91,8 @@ const Page: NextPageWithLayout = () => {
     router.push("/auth/signin");
     return <Loader />;
   }
+
+  console.log(recentRecipe);
   return (
     <>
       <FabButton />
@@ -167,6 +168,7 @@ const Page: NextPageWithLayout = () => {
                     recentRecipe?.documents?.map((recipe: Document) => (
                       <HomeCard
                         key={recipe.id}
+                        id={recipe.$id}
                         author__notes={recipe.author__notes}
                         cooking__instruction={recipe.cooking__instruction}
                         cover__image={recipe.cover__image}
