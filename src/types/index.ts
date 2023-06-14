@@ -12,7 +12,7 @@ export interface Document {
     cover__image: string;
     ingredients: string[];
     name: string;
-    favorites?: [string]
+    favorites?: []
     recipe_title: string;
     serving_size: number;
     userId?: string;
