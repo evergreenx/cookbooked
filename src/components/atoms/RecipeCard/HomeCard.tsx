@@ -24,7 +24,7 @@ const HomeCard = ({
 
   return (
     <motion.div
-      className="rounded-2xl flex flex-col w-full"
+      className="rounded-2xl flex flex-col w-[150px]"
       initial="hidden"
       animate="visible"
       variants={cardVariants}
@@ -50,8 +50,12 @@ const HomeCard = ({
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3 }}
       >
-        <p className="text-[#2E3E5C] font-semibold text-lg tracking-tighter mb-[4px]">
-          {recipe_title}
+        <p className="text-[#2E3E5C] font-semibold text-lg tracking mb-[4px]">
+
+{
+            recipe_title.length < 20 ? recipe_title : recipe_title.substring(0, 20) + "..."
+}
+
         </p>
         <div className="recipe__author">
           <p className="text-[#9FA5C0] font-normal text-[10px] tracking-tighter">

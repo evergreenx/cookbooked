@@ -90,7 +90,9 @@ const RecipeCard = ({
           //   whileHover={{ scale: 1.1 }}
         >
           <p className="text-white font-bold text-lg tracking-tighter">
-            {recipe_title}
+          {
+            recipe_title.length < 20 ? recipe_title : recipe_title.substring(0, 20) + "..."
+}
           </p>
 
           <div className="duration flex items-center justify-between">
@@ -104,14 +106,9 @@ const RecipeCard = ({
                 }
               </p>
             </span>
-            <div className="flex items-center space-x-[5px]">
-              <Image src={timeIcon} alt="time" />
-
-              <p className="text-[#D9D9D9] font-bold text-sm">
-                {cooking__duration}mins
-              </p>
-            </div>
+          
           </div>
+    
         </motion.div>
       </div>
     </motion.div>

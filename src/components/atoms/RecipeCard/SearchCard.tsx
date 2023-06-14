@@ -47,17 +47,19 @@ const SearchCard = ({
  
         >
           <div className="text-white flex justify-between font-bold text-sm tracking-tighter">
-            {recipe_title}
+          {
+            recipe_title.length < 15 ? recipe_title : recipe_title.substring(0, 5) + "..."
+}
 
 
             
           <div className="duration flex items-center justify-between">
         
-        <div className="flex items-center space-x-[5px]">
+        <div className="flex items-center space-x-[2px]">
         <Image src={timeIcon} alt="time" />
 
-<p className="text-[#D9D9D9] font-bold text-sm">
-{cooking__duration} min
+<p className="text-[#D9D9D9] font-bold text-xs tracking-tighter">
+{cooking__duration} mins
 </p>
 
         </div>
