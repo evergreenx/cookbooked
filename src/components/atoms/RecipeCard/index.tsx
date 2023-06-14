@@ -8,6 +8,7 @@ import { databases } from "@/appwrite/config";
 import { toast } from "react-hot-toast";
 import router from "next/router";
 import { UseUser } from "@/providers/AuthProviders";
+import Link from "next/link";
 
 const RecipeCard = ({
   name,
@@ -69,49 +70,49 @@ const RecipeCard = ({
   };
 
   return (
-    <motion.div
-      className="relative   lg:w-[250px] lg:h-[250px] h-[200px]  w-full rounded-2xl overflow-hidden shadow-lg"
-      initial="hidden"
-      animate="visible"
-      variants={cardVariants}
-    >
-      <FavCardOptions handleAddToFav={handleAddToFav} />
-      <Image
-        src={cover__image}
-        alt="Picture of the author"
-        width={400}
-        height={400}
-        className="rounded-2xl h-full w-full object-cover"
-      />
+    <Link href={`/recipe/${id}`}>
+      <motion.div
+        className="relative   lg:w-[250px] lg:h-[250px] h-[200px]  w-full rounded-2xl overflow-hidden shadow-lg"
+        initial="hidden"
+        animate="visible"
+        variants={cardVariants}
+      >
+        <FavCardOptions handleAddToFav={handleAddToFav} />
+        <Image
+          src={cover__image}
+          alt="Picture of the author"
+          width={400}
+          height={400}
+          className="rounded-2xl h-full w-full object-cover"
+        />
 
-      <div className="absolute  left-0 bottom-0 w-full h-full flex items-center justify-center">
-        <motion.div
-          className="bg-[#30303067] flex justify-end flex-col h-full w-full rounded-2xl bg-opacity-50 p-4"
-          //   whileHover={{ scale: 1.1 }}
-        >
-          <p className="text-white font-bold text-lg tracking-tighter">
-          {
-            recipe_title.length < 20 ? recipe_title : recipe_title.substring(0, 20) + "..."
-}
-          </p>
+        <div className="absolute  left-0 bottom-0 w-full h-full flex items-center justify-center">
+          <motion.div
+            className="bg-[#30303067] flex justify-end flex-col h-full w-full rounded-2xl bg-opacity-50 p-4"
+            //   whileHover={{ scale: 1.1 }}
+          >
+            <p className="text-white font-bold text-lg tracking-tighter">
+              {recipe_title.length < 20
+                ? recipe_title
+                : recipe_title.substring(0, 20) + "..."}
+            </p>
 
-          <div className="duration flex items-center justify-between">
-            <span>
-              <p className="text-white font-normal text-sm">
-                {ingredients.length + " "}
-                Ingredient
-                {
-                  // if ingredients.length > 1, add "s" to the word "Ingredients"
-                  ingredients.length > 1 ? "s" : ""
-                }
-              </p>
-            </span>
-          
-          </div>
-    
-        </motion.div>
-      </div>
-    </motion.div>
+            <div className="duration flex items-center justify-between">
+              <span>
+                <p className="text-white font-normal text-sm">
+                  {ingredients.length + " "}
+                  Ingredient
+                  {
+                    // if ingredients.length > 1, add "s" to the word "Ingredients"
+                    ingredients.length > 1 ? "s" : ""
+                  }
+                </p>
+              </span>
+            </div>
+          </motion.div>
+        </div>
+      </motion.div>
+    </Link>
   );
 };
 

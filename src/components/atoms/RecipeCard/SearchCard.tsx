@@ -7,10 +7,12 @@ import { UserCardOptions } from "../DropMenu";
 import { databases } from "@/appwrite/config";
 import { toast } from "react-hot-toast";
 import router from "next/router";
+import Link from "next/link";
 
 const SearchCard = ({
   name,
   id,
+  
   cooking__duration,
   recipe_title,
   cover__image,
@@ -25,6 +27,7 @@ const SearchCard = ({
   };
 
   return (
+    <Link href={`/recipe/${id}`}>
     <motion.div
       className="relative w-full  lg:w-[190px] h-[190px] rounded-2xl overflow-hidden shadow-lg"
       initial="hidden"
@@ -63,6 +66,7 @@ const SearchCard = ({
         </motion.div>
       </div>
     </motion.div>
+    </Link>
   );
 };
 
