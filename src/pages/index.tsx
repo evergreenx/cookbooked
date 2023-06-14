@@ -288,6 +288,7 @@ const Page: NextPageWithLayout = () => {
                   <RecipeCard
                     key={recipe.$id}
                     id={recipe.$id}
+                    favorites={recipe.favorites}
                     author__notes={recipe.author__notes}
                     cooking__instruction={recipe.cooking__instruction}
                     cover__image={recipe.cover__image}

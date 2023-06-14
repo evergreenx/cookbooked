@@ -20,6 +20,7 @@ const RecipeCard = ({
   cooking__instruction,
   ingredients,
   cooking__duration,
+  favorites,
 }: Document) => {
   const cardVariants = {
     hidden: { opacity: 0, scale: 0.5 },
@@ -70,14 +71,19 @@ const RecipeCard = ({
   };
 
   return (
-    <Link href={`/recipe/${id}`} className="lg:w-[250px] lg:h-[250px] h-[200px]">
+    <Link
+      href={`/recipe/${id}`}
+      className="lg:w-[250px] lg:h-[250px] h-[200px]"
+    >
       <motion.div
         className="relative    lg:w-[250px] lg:h-[250px] h-[200px]  w-full rounded-2xl overflow-hidden shadow-lg"
         initial="hidden"
         animate="visible"
         variants={cardVariants}
       >
-        <FavCardOptions handleAddToFav={handleAddToFav} />
+        <FavCardOptions
+        favorites={favorites}
+         handleAddToFav={handleAddToFav} />
         <Image
           src={cover__image}
           alt="Picture of the author"

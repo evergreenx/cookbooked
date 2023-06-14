@@ -9,7 +9,7 @@ import {
 import UserAvatar from "../Avatar";
 import Link from "next/link";
 import { UseUser } from "@/providers/AuthProviders";
-import { favIcon, unionIcon } from "@/assets";
+import { favIcon, unfavIcon, unionIcon } from "@/assets";
 import Image from "next/image";
 
 export const UserDropMenu = () => {
@@ -42,10 +42,6 @@ export const UserDropMenu = () => {
             </DropdownMenu.Item>
           </Link>
 
-          <DropdownMenu.Item className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
-            {" "}
-            Settings
-          </DropdownMenu.Item>
           <DropdownMenu.Separator className="h-[1px] bg-violet6 m-[5px]" />
 
           <DropdownMenu.Item
@@ -103,7 +99,7 @@ export const UserCardOptions = ({
           >
             delete
           </DropdownMenu.Item>
-
+{/* 
           <DropdownMenu.Item
             className="group 
           cursor-pointer
@@ -111,7 +107,7 @@ export const UserCardOptions = ({
           >
             {" "}
             edit
-          </DropdownMenu.Item>
+          </DropdownMenu.Item> */}
           <DropdownMenu.Separator className="h-[1px] bg-violet6 m-[5px]" />
 
           <DropdownMenu.Arrow className="fill-white" />
@@ -123,20 +119,36 @@ export const UserCardOptions = ({
 
 interface FavCardOptionsProps {
   handleAddToFav?: () => void;
+  favorites?: [];
 }
 
-export const FavCardOptions = ({ handleAddToFav }: FavCardOptionsProps) => {
-  const { logout } = UseUser();
+export const FavCardOptions = ({
+  handleAddToFav,
+  favorites,
+}: FavCardOptionsProps) => {
+  const { user, logout } = UseUser();
 
+  // check if user id is in favourites
+console.log(user.$id, "user");
+
+const favoritesArray: string[] | undefined = favorites as string[] | undefined;
+const showfavIcon = favoritesArray?.includes(user.$id as string)
+
+  console.log(favIcon, "favourites");
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger onClick={handleAddToFav} asChild>
         <div
           className="w-[32px] h-[32px]  save
       cursor-pointer
-      top-4 right-4 absolute items-center flex justify-center z-50 bg-[#fff] rounded-full"
+      top-4 right-4 absolute items-center flex justify-center z-[100] bg-[#fff] rounded-full"
         >
-          <Image src={favIcon} alt="fav" />
+
+          {
+            showfavIcon ?  <Image src={favIcon} alt="fav" /> : <Image src={unfavIcon} alt="unfav" /> 
+
+          }
+    
         </div>
       </DropdownMenu.Trigger>
     </DropdownMenu.Root>

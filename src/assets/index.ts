@@ -14,6 +14,8 @@ export { default as favIcon  } from './svgs/fav.svg';
 export { default as timeIcon  } from './svgs/time.svg';
 export { default as logo  } from './svgs/logo.svg';
 export { default as servesIcon  } from './svgs/serve.svg';
+export { default as unfavIcon  } from './svgs/unfav.svg';
+
 
 
 
