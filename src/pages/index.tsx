@@ -110,7 +110,7 @@ const Page: NextPageWithLayout = () => {
     <>
       <FabButton />
       <div className="flex flex-col justify-center p-10 ">
-        <AnimatePresence mode="sync">
+        <AnimatePresence mode="wait">
           <motion.p
             className="text-[#2E3E5C]  text-[30px] lg:text-[50px] font-bold text-left tracking-tighter leading-tight"
             key={fact}
