@@ -99,15 +99,6 @@ const Signup = () => {
     router.push("/");
   }
 
-  const handleGoogleLogin = () => {
-    account.createOAuth2Session(
-      "google",
-
-      "https://cookbooked-chi.vercel.app/",
-
-      ""
-    );
-  };
   return (
     <motion.div
       variants={containerVariants}
@@ -124,8 +115,8 @@ const Signup = () => {
         className="text-[#9FA5C0] font-medium text-[15px] text-center mt-[8px] mb-[32px] tracking-[0.5px]
       "
       >
-        Please enter your email 
-        <br/>
+        Please enter your email
+        <br />
         and password to continue
       </p>
 
@@ -175,9 +166,7 @@ const Signup = () => {
         <motion.div variants={inputVariants} className="button mt-[20px]">
           <Button size="large" type="submit" disable={!formik.isValid}>
             {loadingFeedback ? (
-              <div role="status "
-              className="flex justify-center items-center"
-              >
+              <div role="status " className="flex justify-center items-center">
                 <svg
                   aria-hidden="true"
                   className="w-6 h-6 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-[#F5484A]"
@@ -202,15 +191,6 @@ const Signup = () => {
           </Button>
         </motion.div>
       </form>
-
-      <div className="google_auth ">
-        <button
-          onClick={handleGoogleLogin}
-          className="my-5 w-[44px] h-[44px] bg-[#fff] text-center flex justify-center items-center rounded-3xl "
-        >
-          <Image src={googleIcon} alt="google icon" />
-        </button>
-      </div>
 
       <p className="text-[#2E3E5C] font-medium text-[15px] mt-[28px] ">
         Don’t have any account?{" "}

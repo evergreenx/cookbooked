@@ -8,7 +8,6 @@ import { Query } from "appwrite";
 import { databases } from "@/appwrite/config";
 import Image from "next/image";
 import type { NextPageWithLayout } from "./_app";
-import { ShepherdTour, ShepherdTourContext } from "react-shepherd";
 import AppLayout from "@/components/organism/Layout/AppLayout";
 import { FabButton } from "@/components/molecules/FabButton";
 import RecipeCard from "@/components/atoms/RecipeCard";
@@ -80,12 +79,22 @@ const Page: NextPageWithLayout = () => {
   }, []);
 
   const [fact, setFact] = useState("");
-  const [run, setRun] = useState(true);
+  const [run, setRun] = useState(false);
 
   useEffect(() => {
     getRandomFact();
     const timer = setInterval(getRandomFact, 10000); // 60000 milliseconds = 1 minute
     return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const hasSeenJoyride = localStorage.getItem("hasSeenJoyride");
+
+    if (!hasSeenJoyride) {
+      // Show joyride for the first time
+      setRun(true);
+      localStorage.setItem("hasSeenJoyride", "true");
+    }
   }, []);
 
   const getRandomFact = () => {
@@ -101,10 +110,11 @@ const Page: NextPageWithLayout = () => {
       content: (
         <>
           <h1 className="text-xl font-bold text-brandColor">
-            Welcome to cookbooked
+            Welcome to Cookbooked
           </h1>
-
-          <p className="text-sm font-medium">Find best recipes for cooking</p>
+          <p className="text-sm font-medium">
+            Discover the best recipes for cooking
+          </p>
         </>
       ),
     },
@@ -113,11 +123,10 @@ const Page: NextPageWithLayout = () => {
       content: (
         <>
           <h1 className="text-xl font-bold text-brandColor">
-            Search for recipes
+            Search for Recipes
           </h1>
-
           <p className="text-sm font-medium">
-            Search for recipes by name, ingredients, or tags
+            Find recipes by name, ingredients, or tags to suit your taste
           </p>
         </>
       ),
@@ -129,71 +138,71 @@ const Page: NextPageWithLayout = () => {
           <h1 className="text-xl font-bold text-brandColor">
             Find Your Perfect Recipe
           </h1>
-
           <p className="text-sm font-medium">
             Browse thousands of recipes from around the world. From quick and
-            easy meals to gourmet delights, we ve got you covered
+            easy meals to gourmet delights, we ve got you covered.
           </p>
         </>
       ),
     },
-
     {
       target: ".save",
       content: (
         <>
           <h1 className="text-xl font-bold text-brandColor">
-            Save your recipes
+            Save Your Recipes
           </h1>
           <p className="text-sm font-medium">
             Never lose a recipe again! Save your favorite recipes to access them
-            anytime, anywhere
+            anytime, anywhere.
           </p>
         </>
       ),
     },
-
     {
       target: ".create",
       content: (
         <>
           <h1 className="text-xl font-bold text-brandColor">
-            Create your own recipe
+            Create Your Own Recipe
           </h1>
           <p className="text-sm font-medium">
-            Create your own recipe and share it with the world
+            Unleash your creativity and share your own unique recipes with the
+            world.
           </p>
         </>
       ),
     },
-
     {
       target: ".profile",
       content: (
         <>
           <h1 className="text-xl font-bold text-brandColor">
-            see your profile
+            Manage Your Profile
           </h1>
           <p className="text-sm font-medium">
-            All your created recipes and saved recipes are here and manage your
-            profile
+            All your created recipes and saved recipes are here. Customize your
+            profile to make it truly yours.
           </p>
         </>
       ),
     },
-
     {
       target: ".details",
       content: (
         <>
           <h1 className="text-xl font-bold text-brandColor">
-            see the recipe details
+            Explore Recipe Details
           </h1>
-          <p className="text-sm font-medium">See the recipe details</p>
+          <p className="text-sm font-medium">
+            Dive into the details of each recipe and discover cooking
+            instructions, ingredients, and more.
+          </p>
         </>
       ),
     },
   ];
+
   if (loading) {
     return <Loader />;
   }
@@ -206,12 +215,6 @@ const Page: NextPageWithLayout = () => {
     router.push("/auth/signin");
     return <Loader />;
   }
-
-  const handleClickStart = (event: React.MouseEvent<HTMLElement>) => {
-    event.preventDefault();
-
-    setRun(true);
-  };
 
   function logGroup(type: string, data: any) {
     console.groupCollapsed(type);
@@ -230,7 +233,7 @@ const Page: NextPageWithLayout = () => {
     logGroup(type, data);
   };
   return (
-    <div className="home">
+    <div className="">
       <Joyride
         callback={handleJoyrideCallback}
         continuous

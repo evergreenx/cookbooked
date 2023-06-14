@@ -10,7 +10,7 @@ const Header = () => {
   const { user } = UseUser();
   return (
     <div className=" h-14  flex justify-between px-10 py-5 ">
-      <Link href="/">
+      <Link href="/" className="home">
         <Image src={logo} alt="logo" width={50} height={50} />
       </Link>
 
