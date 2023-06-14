@@ -82,11 +82,13 @@ const Page: NextPageWithLayout = () => {
   const [fact, setFact] = useState("");
 
   useEffect(() => {
+    getRandomFact();
     const timer = setInterval(getRandomFact, 10000); // 60000 milliseconds = 1 minute
     return () => clearInterval(timer);
   }, []);
 
   const getRandomFact = () => {
+    
     const randomIndex = Math.floor(Math.random() * foodFacts.length);
     const randomFact = foodFacts[randomIndex].fact;
     setFact(randomFact);
