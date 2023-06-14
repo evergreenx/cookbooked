@@ -1,6 +1,7 @@
 import { databases } from "@/appwrite/config";
 import { servesIcon, timeIcon } from "@/assets";
 import Loader from "@/components/atoms/Loader";
+import { UseUser } from "@/providers/AuthProviders";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -8,6 +9,8 @@ import React, { useEffect, useState } from "react";
 
 const Index = () => {
   const [singleRecipe, setSingleRecipe] = useState<any>(null);
+
+ const {user}  = UseUser();
   const [loadingRecipe, setLoadingRecipe] = useState<boolean>(false);
 
   const router = useRouter();
@@ -42,6 +45,11 @@ const Index = () => {
     handleGetSingleRecipe();
   }, []);
 
+
+  if (!user) {
+    router.push("/auth/signin");
+    return <Loader />;
+  }
   if (loadingRecipe) {
     return <Loader />;
   }

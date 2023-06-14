@@ -10,11 +10,13 @@ import Button from "@/components/atoms/Button";
 import { emptySearch, filterIcon } from "@/assets";
 import Image from "next/image";
 import Loader from "@/components/atoms/Loader";
+import {useRouter} from "next/router";
 
 const Search = () => {
   const [loadingRecipe, setLoadingRecipe] = useState<boolean>(false);
 
   const { user, loading, loadingFeedback } = UseUser();
+  const router = useRouter();
 
   const [search, setSearch] = useState<string>("");
   const [seachResults, setSearchResult] = useState<any>(null); // Updated the initial state to null
@@ -51,6 +53,13 @@ const Search = () => {
         setLoadingRecipe(false);
       });
   };
+
+
+
+  if (!user) {
+    router.push("/auth/signin");
+    return <Loader />;
+  }
 
   return (
     <motion.div
