@@ -70,7 +70,7 @@ const RecipeCard = ({
   };
 
   return (
-    <Link href={`/recipe/${id}`}>
+    <Link href={`/recipe/${id}`} className="lg:w-[250px] lg:h-[250px] h-[200px]">
       <motion.div
         className="relative    lg:w-[250px] lg:h-[250px] h-[200px]  w-full rounded-2xl overflow-hidden shadow-lg"
         initial="hidden"

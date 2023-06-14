@@ -25,7 +25,7 @@ const HomeCard = ({
   };
 
   return (
-    <Link href={`/recipe/${id}`}>
+    <Link href={`/recipe/${id}`} className="w-[150px]">
       <motion.div
         className="rounded-2xl flex flex-col w-[150px]"
         initial="hidden"
