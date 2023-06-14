@@ -71,9 +71,7 @@ export const cardOptionPopover = () => (
           >
             Profile
           </Link>
-          <p className="text-mauve12 text-[15px] leading-[19px] font-medium mb-2.5">
-            Settings
-          </p>
+         
         </div>
         <Popover.Close
           className="rounded-full h-[25px] w-[25px] inline-flex items-center justify-center text-violet11 absolute top-[5px] right-[5px] hover:bg-violet4  outline-none cursor-default"

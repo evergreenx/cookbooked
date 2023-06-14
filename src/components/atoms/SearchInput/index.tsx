@@ -11,7 +11,7 @@ interface Props {
 const SearchInput = ({ search, setSearch }: Props) => {
   return (
     <motion.div
-      className="input border-[#9FA5C0]  border-[1.3px] rounded-[10px] bg-[#FFFFFF] flex items-center h-[40px] p-2 w-full mx-auto"
+      className="input search border-[#9FA5C0]  border-[1.3px] rounded-[10px] bg-[#FFFFFF] flex items-center h-[40px] p-2 w-full mx-auto"
       initial={{ y: -0, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, delay: 0.6 }}

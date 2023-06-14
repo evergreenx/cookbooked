@@ -23,7 +23,7 @@ export const UserDropMenu = () => {
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
         <button
-          className="rounded-full w-[35px] h-[35px] inline-flex items-center justify-center text-violet11 bg-white shadow-[0_2px_10px] shadow-blackA7 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black"
+          className="rounded-full profile w-[35px] h-[35px] inline-flex items-center justify-center text-violet11 bg-white shadow-[0_2px_10px] shadow-blackA7 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black"
           aria-label="Customise options"
         >
           <UserAvatar sizes="small" />
@@ -132,7 +132,7 @@ export const FavCardOptions = ({ handleAddToFav }: FavCardOptionsProps) => {
     <DropdownMenu.Root>
       <DropdownMenu.Trigger onClick={handleAddToFav} asChild>
         <div
-          className="w-[32px] h-[32px] 
+          className="w-[32px] h-[32px]  save
       cursor-pointer
       top-4 right-4 absolute items-center flex justify-center z-50 bg-[#fff] rounded-full"
         >

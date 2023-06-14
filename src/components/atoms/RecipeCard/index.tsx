@@ -72,7 +72,7 @@ const RecipeCard = ({
   return (
     <Link href={`/recipe/${id}`}>
       <motion.div
-        className="relative   lg:w-[250px] lg:h-[250px] h-[200px]  w-full rounded-2xl overflow-hidden shadow-lg"
+        className="relative    lg:w-[250px] lg:h-[250px] h-[200px]  w-full rounded-2xl overflow-hidden shadow-lg"
         initial="hidden"
         animate="visible"
         variants={cardVariants}
@@ -86,7 +86,7 @@ const RecipeCard = ({
           className="rounded-2xl h-full w-full object-cover"
         />
 
-        <div className="absolute  left-0 bottom-0 w-full h-full flex items-center justify-center">
+        <div className="absolute details left-0 bottom-0 w-full h-full flex items-center justify-center">
           <motion.div
             className="bg-[#30303067] flex justify-end flex-col h-full w-full rounded-2xl bg-opacity-50 p-4"
             //   whileHover={{ scale: 1.1 }}

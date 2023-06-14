@@ -14,7 +14,9 @@ const Header = () => {
         <Image src={logo} alt="logo" width={50} height={50} />
       </Link>
 
-      {user && <UserDropMenu />}
+      {user && <UserDropMenu
+      
+      />}
     </div>
   );
 };

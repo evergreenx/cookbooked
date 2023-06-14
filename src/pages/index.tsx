@@ -2,13 +2,13 @@ import Button from "@/components/atoms/Button";
 import { UseUser } from "@/providers/AuthProviders";
 import { Poppins } from "next/font/google";
 import { useRouter } from "next/router";
-import React, { useEffect, ReactElement, useState } from "react";
+import React, { useEffect, ReactElement, useState, useContext } from "react";
 import { Toaster } from "react-hot-toast";
 import { Query } from "appwrite";
 import { databases } from "@/appwrite/config";
 import Image from "next/image";
 import type { NextPageWithLayout } from "./_app";
-
+import { ShepherdTour, ShepherdTourContext } from "react-shepherd";
 import AppLayout from "@/components/organism/Layout/AppLayout";
 import { FabButton } from "@/components/molecules/FabButton";
 import RecipeCard from "@/components/atoms/RecipeCard";
@@ -20,6 +20,8 @@ import Loader from "@/components/atoms/Loader";
 import SearchInput from "@/components/atoms/SearchInput";
 import Link from "next/link";
 import { foodFacts } from "@/data/foodfacts";
+import Joyride, { CallBackProps, STATUS, Step } from "react-joyride";
+
 const Page: NextPageWithLayout = () => {
   const { user, logout, loading } = UseUser();
   const [loadingRecipe, setLoadingRecipe] = useState<boolean>(false);
@@ -27,8 +29,6 @@ const Page: NextPageWithLayout = () => {
   const [recentRecipe, setRecentRecipe] = useState<any>([]); // Updated the initial state to null
 
   const router = useRouter();
-
-  user;
 
   useEffect(() => {
     const promise = databases.listDocuments(
@@ -80,6 +80,7 @@ const Page: NextPageWithLayout = () => {
   }, []);
 
   const [fact, setFact] = useState("");
+  const [run, setRun] = useState(true);
 
   useEffect(() => {
     getRandomFact();
@@ -88,12 +89,111 @@ const Page: NextPageWithLayout = () => {
   }, []);
 
   const getRandomFact = () => {
-    
     const randomIndex = Math.floor(Math.random() * foodFacts.length);
     const randomFact = foodFacts[randomIndex].fact;
     setFact(randomFact);
   };
 
+  const steps = [
+    {
+      target: ".home",
+      disableBeacon: true,
+      content: (
+        <>
+          <h1 className="text-xl font-bold text-brandColor">
+            Welcome to cookbooked
+          </h1>
+
+          <p className="text-sm font-medium">Find best recipes for cooking</p>
+        </>
+      ),
+    },
+    {
+      target: ".search",
+      content: (
+        <>
+          <h1 className="text-xl font-bold text-brandColor">
+            Search for recipes
+          </h1>
+
+          <p className="text-sm font-medium">
+            Search for recipes by name, ingredients, or tags
+          </p>
+        </>
+      ),
+    },
+    {
+      target: ".second",
+      content: (
+        <>
+          <h1 className="text-xl font-bold text-brandColor">
+            Find Your Perfect Recipe
+          </h1>
+
+          <p className="text-sm font-medium">
+            Browse thousands of recipes from around the world. From quick and
+            easy meals to gourmet delights, we ve got you covered
+          </p>
+        </>
+      ),
+    },
+
+    {
+      target: ".save",
+      content: (
+        <>
+          <h1 className="text-xl font-bold text-brandColor">
+            Save your recipes
+          </h1>
+          <p className="text-sm font-medium">
+            Never lose a recipe again! Save your favorite recipes to access them
+            anytime, anywhere
+          </p>
+        </>
+      ),
+    },
+
+    {
+      target: ".create",
+      content: (
+        <>
+          <h1 className="text-xl font-bold text-brandColor">
+            Create your own recipe
+          </h1>
+          <p className="text-sm font-medium">
+            Create your own recipe and share it with the world
+          </p>
+        </>
+      ),
+    },
+
+    {
+      target: ".profile",
+      content: (
+        <>
+          <h1 className="text-xl font-bold text-brandColor">
+            see your profile
+          </h1>
+          <p className="text-sm font-medium">
+            All your created recipes and saved recipes are here and manage your
+            profile
+          </p>
+        </>
+      ),
+    },
+
+    {
+      target: ".details",
+      content: (
+        <>
+          <h1 className="text-xl font-bold text-brandColor">
+            see the recipe details
+          </h1>
+          <p className="text-sm font-medium">See the recipe details</p>
+        </>
+      ),
+    },
+  ];
   if (loading) {
     return <Loader />;
   }
@@ -106,9 +206,50 @@ const Page: NextPageWithLayout = () => {
     router.push("/auth/signin");
     return <Loader />;
   }
+
+  const handleClickStart = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+
+    setRun(true);
+  };
+
+  function logGroup(type: string, data: any) {
+    console.groupCollapsed(type);
+    console.log(data);
+    console.groupEnd();
+  }
+
+  const handleJoyrideCallback = (data: CallBackProps) => {
+    const { status, type } = data;
+    const finishedStatuses: string[] = [STATUS.FINISHED, STATUS.SKIPPED];
+
+    if (finishedStatuses.includes(status)) {
+      setRun(false);
+    }
+
+    logGroup(type, data);
+  };
   return (
-    <>
+    <div className="home">
+      <Joyride
+        callback={handleJoyrideCallback}
+        continuous
+        hideCloseButton
+        run={run}
+        scrollToFirstStep
+        showProgress
+        disableScrolling
+        showSkipButton={false}
+        steps={steps}
+        styles={{
+          options: {
+            zIndex: 10000,
+          },
+        }}
+      />
+
       <FabButton />
+
       <div className="flex flex-col justify-center p-10 ">
         <AnimatePresence mode="wait">
           <motion.p
@@ -118,7 +259,6 @@ const Page: NextPageWithLayout = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             style={{ cursor: "pointer" }}
-            whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
             {fact}
@@ -126,7 +266,7 @@ const Page: NextPageWithLayout = () => {
         </AnimatePresence>
 
         <Link
-          className="search my-8 w-full lg:w-[50%] mx-auto"
+          className=" my-8 w-full lg:w-[50%] mx-auto first"
           href="/recipe/search"
         >
           <SearchInput />
@@ -135,7 +275,11 @@ const Page: NextPageWithLayout = () => {
           {loadingRecipe ? (
             "Loading..."
           ) : (
-            <div className="card grid grid-cols-2 lg:grid-cols-3 gap-4 items-center justify-center mx-auto content-center">
+            <div
+              className="card
+            second
+            grid grid-cols-2 lg:grid-cols-3 gap-4 items-center justify-center mx-auto content-center"
+            >
               {userRecipe &&
                 userRecipe?.documents.map((recipe: Document) => (
                   <RecipeCard
@@ -198,7 +342,7 @@ const Page: NextPageWithLayout = () => {
 
         <Toaster />
       </div>
-    </>
+    </div>
   );
 };
 
