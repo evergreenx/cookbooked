@@ -6,6 +6,7 @@ import { UseUser, UserProvider } from "@/providers/AuthProviders";
 import Head from "next/head";
 import Header from "@/components/molecules/Header";
 import { Poppins } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -31,6 +32,8 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
+
+        <title>cookbooked - your digital cookbook</title>
       </Head>
 
       <UserProvider>
@@ -39,6 +42,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         >
           <Header />
           <Component {...pageProps} />
+          <Analytics />
         </main>
       </UserProvider>
     </>
