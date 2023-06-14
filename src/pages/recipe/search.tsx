@@ -54,7 +54,9 @@ const Search = () => {
       });
   };
 
-
+  if (loading) {
+    return <Loader />;
+  }
 
   if (!user) {
     router.push("/auth/signin");
