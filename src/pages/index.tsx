@@ -14,12 +14,12 @@ import { FabButton } from "@/components/molecules/FabButton";
 import RecipeCard from "@/components/atoms/RecipeCard";
 import { arrowIcon } from "@/assets";
 import HomeCard from "@/components/atoms/RecipeCard/HomeCard";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Document } from "../types";
 import Loader from "@/components/atoms/Loader";
 import SearchInput from "@/components/atoms/SearchInput";
 import Link from "next/link";
-
+import { foodFacts } from "@/data/foodfacts";
 const Page: NextPageWithLayout = () => {
   const { user, logout, loading } = UseUser();
   const [loadingRecipe, setLoadingRecipe] = useState<boolean>(false);
@@ -79,6 +79,19 @@ const Page: NextPageWithLayout = () => {
     fetchRecentRecipes();
   }, []);
 
+  const [fact, setFact] = useState("");
+
+  useEffect(() => {
+    const timer = setInterval(getRandomFact, 10000); // 60000 milliseconds = 1 minute
+    return () => clearInterval(timer);
+  }, []);
+
+  const getRandomFact = () => {
+    const randomIndex = Math.floor(Math.random() * foodFacts.length);
+    const randomFact = foodFacts[randomIndex].fact;
+    setFact(randomFact);
+  };
+
   if (loading) {
     return <Loader />;
   }
@@ -91,27 +104,24 @@ const Page: NextPageWithLayout = () => {
     router.push("/auth/signin");
     return <Loader />;
   }
-
-  console.log(recentRecipe);
   return (
     <>
       <FabButton />
       <div className="flex flex-col justify-center p-10 ">
-        <motion.h1
-          className="text-[#2E3E5C]  text-[30px] lg:text-[50px] font-bold text-left tracking-tighter leading-tight"
-          initial={{ y: -100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-        >
-          Find best recipes <br className="hidden lg:block" />
-          <motion.span
+        <AnimatePresence mode="sync">
+          <motion.p
+            className="text-[#2E3E5C]  text-[30px] lg:text-[50px] font-bold text-left tracking-tighter leading-tight"
+            key={fact}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1 }}
+            exit={{ opacity: 0 }}
+            style={{ cursor: "pointer" }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
           >
-            for cooking
-          </motion.span>
-        </motion.h1>
+            {fact}
+          </motion.p>
+        </AnimatePresence>
 
         <Link
           className="search my-8 w-full lg:w-[50%] mx-auto"
