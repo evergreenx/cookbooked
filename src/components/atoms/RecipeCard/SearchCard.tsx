@@ -44,7 +44,7 @@ const SearchCard = ({
 
       <div className="absolute  left-0 bottom-0 w-full h-full flex items-center justify-center">
         <motion.div className="text flex justify-end flex-col h-full w-full bg-opacity-50 p-4">
-          <div className="text-white flex justify-between font-bold text-sm tracking-tighter">
+          <div className="text-white flex justify-between font-bold text-xs tracking-tighter">
             {recipe_title.length < 15
               ? recipe_title
               : recipe_title.substring(0, 5) + "..."}
